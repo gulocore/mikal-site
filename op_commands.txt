@@ -1,0 +1,23 @@
+This file is a list of operational commands that are relevant to using this project
+
+run our local project's version of Eleventy:
+# Searches the current directory, outputs to ./_site
+npx @11ty/eleventy
+
+# `npx @11ty/eleventy` is the same as:
+npx @11ty/eleventy --input=. --output=_site
+
+# Add a web server to apply changes and
+# refresh automatically. We’ll also --watch for you.
+npx @11ty/eleventy --serve
+
+# Change the web server’s port—use localhost:8081
+npx @11ty/eleventy --serve --port=8081
+
+# Watch and re-run when files change, without the web server.
+npx @11ty/eleventy --watch
+
+See https://www.11ty.dev/docs/usage/
+
+
+
