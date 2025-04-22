@@ -1,0 +1,4 @@
+Global data is data that is exposed to every template in an Eleventy project.
+
+One way to create global data is through global data files: JSON and JavaScript files placed inside of the global data folder. The global data folder is placed inside the project's input directory (set by the dir.input configuration option), and the name of the global data folder is set by the dir.data configuration option (_data by default). All *.json and module.exports values from *.js files in this directory will be added into a global data object available to all templates. The name and location of these files will inform the keys in the data object structure where they can be accessed. Note that this means computed data must be in a file called eleventyComputed.js.
+
