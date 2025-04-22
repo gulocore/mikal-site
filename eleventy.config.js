@@ -1,3 +1,7 @@
+/**
+ * @param {import("@11ty/eleventy").UserConfig} eleventyConfig
+ * @returns {import("@11ty/eleventy").EleventyConfig}
+ */
 module.exports = async function(eleventyConfig) {
   const { EleventyHtmlBasePlugin } = await import("@11ty/eleventy");	
   const autoprefixer = require('autoprefixer');
@@ -70,5 +74,8 @@ module.exports.config = {
     output: "_site",
     includes: "../includes",
     data: "../data",
+  },
+  serverOptions: {
+    port: 4040
   },
 };

@@ -1,0 +1,25 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "layout": {
+      "type": "string",
+      "description": "Template layout to use"
+    },
+    "title": {
+      "type": "string",
+      "description": "Page title"
+    },
+    "date": {
+      "type": ["string", "object"],
+      "description": "Publication date"
+    },
+    "tags": {
+      "type": ["string", "array"],
+      "description": "Content tags for collection grouping",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}
