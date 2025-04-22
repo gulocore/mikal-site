@@ -12,8 +12,9 @@ const { EleventyHtmlBasePlugin } = await import("@11ty/eleventy");
 
  const postcssImport = require('postcss-import');
 
-eleventyConfig.addWatchTarget("./src/css/**/*.css");
-eleventyConfig.addWatchTarget("./src/assets/**/*");
+eleventyConfig.addWatchTarget("./src/**/*");
+eleventyConfig.setWatchJavaScriptDependencies(true);
+
 
 eleventyConfig.addPassthroughCopy({ "./src/assets/images": "img" });
 eleventyConfig.addPassthroughCopy({ "./src/assets/fonts": "css/fonts" });
