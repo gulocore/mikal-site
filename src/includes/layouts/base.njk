@@ -3,28 +3,119 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ title }} | My Site</title>
+    <title>{{ title }} | {{ global.website_title }}</title>
     <link rel="stylesheet" href="/css/main.css">
+    <!-- Add a basic icon font - you can replace with your preferred icon system -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 <body>
-    <header>
-        <nav>
+<!-- Mobile header - only shows on mobile -->
+<div class="mobile-header">
+    <div class="mobile-header-content">
+        <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle navigation menu">
+            <i class="fas fa-bars"></i>
+        </button>
+        <span class="mobile-title">{{ global.website_title }}</span>
+    </div>
+</div>
+
+<div class="container">
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h2>{{ global.website_title }}</h2>
+        </div>
+        <nav class="sidebar-nav">
             <ul>
-                <li><a href="/">Home</a></li>
-                <li><a href="/about/">About</a></li>
-                <li><a href="/blog/">Blog</a></li>
+                <li><a href="/" {% if page.url == "/" %}class="active"{% endif %}>
+                        <i class="fas fa-home"></i> <span>Home</span>
+                    </a></li>
+                <li><a href="/about/" {% if page.url == "/about/" %}class="active"{% endif %}>
+                        <i class="fas fa-info-circle"></i> <span>About</span>
+                    </a></li>
+                <li><a href="/blog/" {% if page.url == "/blog/" %}class="active"{% endif %}>
+                        <i class="fas fa-pen"></i> <span>Blog</span>
+                    </a></li>
             </ul>
         </nav>
-    </header>
 
-    <main>
-        {{ content | safe }}
-    </main>
+        <button class="sidebar-toggle" id="sidebarToggle" aria-label="Toggle sidebar">
+            <i class="fas fa-chevron-left"></i>
+        </button>
+    </aside>
 
-    <footer>
-        <p>&copy; {{ site.year }} My Website</p>
-    </footer>
+    <div class="content-wrapper">
+        <main>
+            {{ content | safe }}
+        </main>
 
-    <script src="/js/main.js"></script>
+        <footer>
+            <p>&copy; {{ global.year }} {{ global.website_title }}</p>
+        </footer>
+    </div>
+</div>
+
+<script>
+    // Enhanced toggle functionality for all screen sizes
+    document.getElementById('sidebarToggle').addEventListener('click', function() {
+        const sidebar = document.getElementById('sidebar');
+        sidebar.classList.toggle('collapsed');
+        document.body.classList.toggle('sidebar-collapsed');
+
+        // Save preference in localStorage
+        const isCollapsed = sidebar.classList.contains('collapsed');
+        localStorage.setItem('sidebarCollapsed', isCollapsed);
+    });
+
+    // Mobile menu toggle
+    document.getElementById('mobileMenuToggle').addEventListener('click', function() {
+        const sidebar = document.getElementById('sidebar');
+        sidebar.classList.toggle('open');
+
+        // Toggle icon between bars and X
+        const icon = this.querySelector('i');
+        if (sidebar.classList.contains('open')) {
+            icon.classList.remove('fa-bars');
+            icon.classList.add('fa-xmark');
+        } else {
+            icon.classList.remove('fa-xmark');
+            icon.classList.add('fa-bars');
+        }
+
+        // Toggle aria-expanded for accessibility
+        this.setAttribute('aria-expanded', sidebar.classList.contains('open'));
+    });
+
+    // Restore sidebar state from localStorage on page load
+    document.addEventListener('DOMContentLoaded', function() {
+        const sidebar = document.getElementById('sidebar');
+        const isCollapsed = localStorage.getItem('sidebarCollapsed') === 'true';
+
+        if (isCollapsed) {
+            sidebar.classList.add('collapsed');
+            document.body.classList.add('sidebar-collapsed');
+        }
+
+        // Handle window resize events to adjust layout
+        function handleResize() {
+            if (window.innerWidth <= 768) {
+                // Reset sidebar state on mobile
+                sidebar.classList.remove('collapsed');
+                document.body.classList.remove('sidebar-collapsed');
+
+                // Close mobile sidebar when resizing
+                if (sidebar.classList.contains('open')) {
+                    sidebar.classList.remove('open');
+                    const icon = document.querySelector('#mobileMenuToggle i');
+                    icon.classList.remove('fa-xmark');
+                    icon.classList.add('fa-bars');
+                }
+            }
+        }
+
+        window.addEventListener('resize', handleResize);
+        handleResize(); // Run once on load
+    });
+</script>
+<script src="/js/main.js"></script>
 </body>
 </html>

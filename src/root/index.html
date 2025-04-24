@@ -1,1 +1,54 @@
-<!doctype html><title>Page title</title><p>Hi</p>
+---
+layout: layouts/base.njk
+title: Hello World
+---
+
+<section class="page-content">
+    <h1>Hello World!</h1>
+
+    <p>This is a test page to verify that the base layout is working correctly.</p>
+
+    <div class="demo-section">
+        <h2>Theme Colors Demo</h2>
+        <div class="color-samples">
+            <div class="color-sample" style="background-color: var(--color-night-sky);">Night Sky</div>
+            <div class="color-sample" style="background-color: var(--color-twilight-haze);">Twilight Haze</div>
+            <div class="color-sample" style="background-color: var(--color-amethyst-dusk);">Amethyst Dusk</div>
+            <div class="color-sample" style="background-color: var(--color-aurora-teal);">Aurora Teal</div>
+            <div class="color-sample" style="background-color: var(--color-fjord-blue);">Fjord Blue</div>
+            <div class="color-sample" style="background-color: var(--color-aurora-purple);">Aurora Purple</div>
+        </div>
+    </div>
+
+    <p>If you can see this content with the proper styling and sidebar navigation, your layout is working!</p>
+</section>
+
+<style>
+    .color-samples {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+        margin: 1rem 0 2rem;
+    }
+
+    .color-sample {
+        padding: 1rem;
+        border-radius: var(--border-radius);
+        color: white;
+        width: 150px;
+        height: 100px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        font-weight: bold;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    }
+
+    .demo-section {
+        background-color: var(--color-background-alt);
+        padding: 1.5rem;
+        border-radius: var(--border-radius);
+        margin: 2rem 0;
+    }
+</style>

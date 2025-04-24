@@ -1,0 +1,118 @@
+/* Modern CSS Reset */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    font-size: 16px;
+    -webkit-text-size-adjust: 100%;
+    height: 100%;
+}
+
+body {
+    font-family: var(--font-sans), serif;
+    line-height: 1.6;
+    color: var(--color-text-primary);
+    background-color: var(--color-background);
+    min-height: 100vh;
+    text-rendering: optimizeSpeed;
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+}
+
+h1, h2, h3, h4, h5, h6 {
+    line-height: 1.2;
+    margin-bottom: var(--space-md);
+}
+
+p, ul, ol, pre, table, blockquote {
+    margin-bottom: var(--space-md);
+}
+
+ul, ol {
+    padding-left: var(--space-xl);
+}
+
+a {
+    color: var(--color-link);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+a:hover {
+    color: var(--color-link-hover);
+}
+
+img, picture, video, canvas, svg {
+    display: block;
+    max-width: 100%;
+}
+
+/* Remove animations for people who've turned them off */
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+/* Layout using CSS Grid */
+.container {
+    display: grid;
+    grid-template-columns: auto 1fr; /* First column auto-sized to content, second takes remaining */
+    min-height: 100vh;
+    width: 100%;
+}
+
+body.sidebar-collapsed .container {
+    grid-template-columns: var(--sidebar-collapsed-width) 1fr;
+}
+
+.content-wrapper {
+    grid-column: 2; /* Place in second column */
+    padding: var(--space-xl);
+    min-height: 100vh;
+
+    /* Add these properties for the column layout */
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex-grow: 1; /* This makes the main content expand */
+    max-width: 800px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+footer {
+    margin-top: auto; /* This pushes the footer to the bottom */
+    padding-top: var(--space-lg);
+    padding-bottom: var(--space-lg);
+    width: 100%;
+    color: var(--color-text-secondary);
+    font-size: 0.9rem;
+    text-align: center;
+    border-top: 1px solid var(--color-background-alt);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .container {
+        grid-template-columns: 1fr; /* Single column layout on mobile */
+    }
+
+    body.sidebar-collapsed .container {
+        grid-template-columns: 1fr; /* Maintain single column even when collapsed */
+    }
+
+    .content-wrapper {
+        grid-column: 1; /* Place in only column */
+        padding: var(--space-md);
+    }
+}
