@@ -20,6 +20,8 @@
     --color-ice-blue: #88CFDA;
 
     /* Semantic Mappings */
+    --color-body-background: var(--color-winter-sky);
+    --color-border-shadow: var(--color-amethyst-dusk);
     --color-background: var(--color-night-sky);
     --color-background-alt: var(--color-twilight-haze);
     --color-sidebar-bg: var(--color-amethyst-dusk);
@@ -53,6 +55,8 @@
     --sidebar-width-min: 170px;
     --sidebar-collapsed-width: 60px;
     --sidebar-transition-speed: 0.1s;
-    --border-radius: 5px;
+    --border-radius: 10px;
+    --border-thickness: 2px;
+    --container-padding: 7px;
     --content-max-width: 1200px;
 }
