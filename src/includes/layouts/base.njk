@@ -56,8 +56,15 @@
 
 <script>
     // Enhanced toggle functionality for all screen sizes
-    document.getElementById('sidebarToggle').addEventListener('click', function() {
+    document.getElementById('sidebarToggle').addEventListener('click', function(e) {
         const sidebar = document.getElementById('sidebar');
+
+        // If we're in mobile mode and the sidebar is open, don't allow collapse
+        if (window.innerWidth <= 768 && sidebar.classList.contains('open')) {
+            e.stopPropagation();
+            return false;
+        }
+
         sidebar.classList.toggle('collapsed');
         document.body.classList.toggle('sidebar-collapsed');
 
@@ -85,6 +92,24 @@
         this.setAttribute('aria-expanded', sidebar.classList.contains('open'));
     });
 
+    // Close sidebar when clicking content area in mobile mode
+    document.querySelector('.content-wrapper').addEventListener('click', function() {
+        const sidebar = document.getElementById('sidebar');
+
+        // Only act if we're in mobile mode and the sidebar is open
+        if (window.innerWidth <= 768 && sidebar.classList.contains('open')) {
+            sidebar.classList.remove('open');
+
+            // Change the mobile menu icon back to bars
+            const icon = document.querySelector('#mobileMenuToggle i');
+            icon.classList.remove('fa-xmark');
+            icon.classList.add('fa-bars');
+
+            // Update aria-expanded for accessibility
+            document.getElementById('mobileMenuToggle').setAttribute('aria-expanded', 'false');
+        }
+    });
+
     // Restore sidebar state from localStorage on page load
     document.addEventListener('DOMContentLoaded', function() {
         const sidebar = document.getElementById('sidebar');
@@ -108,6 +133,7 @@
                     const icon = document.querySelector('#mobileMenuToggle i');
                     icon.classList.remove('fa-xmark');
                     icon.classList.add('fa-bars');
+                    document.getElementById('mobileMenuToggle').setAttribute('aria-expanded', 'false');
                 }
             }
         }

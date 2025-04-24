@@ -1,7 +1,7 @@
 /* Sidebar Navigation */
 .sidebar {
     grid-column: 1; /* Place in first column */
-    position: fixed;
+    position: sticky;
     width: max-content; /* Fit content width */
     min-width: var(--sidebar-width-min);
     max-width: var(--sidebar-width-max);
@@ -193,6 +193,10 @@
 
 /* Mobile styles */
 @media (max-width: 768px) {
+
+    .sidebar-toggle {
+        display: none;
+    }
 
     .container {
         grid-template-columns: 1fr;
