@@ -1,12 +1,12 @@
 /* Sidebar Navigation */
 .sidebar {
-    grid-column: 1; /* Place in first column */
+    grid-column: 1;
     position: sticky;
-    width: max-content; /* Fit content width */
+    width: max-content;
     min-width: var(--sidebar-width-min);
     max-width: var(--sidebar-width-max);
     background-color: var(--color-sidebar-bg);
-    height: 100vh; /* Full height */
+    height: 100vh;
     overflow-y: auto;
     overflow-x: hidden;
     transition: all var(--sidebar-transition-speed) ease;
