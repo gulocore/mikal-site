@@ -50,9 +50,9 @@
 
     /* Layout */
     --sidebar-width-max: 280px;
-    --sidebar-width-min: 200px;
+    --sidebar-width-min: 150px;
     --sidebar-collapsed-width: 60px;
-    --sidebar-transition-speed: 0.3s;
+    --sidebar-transition-speed: 0.1s;
     --border-radius: 4px;
     --content-max-width: 1200px;
 }
