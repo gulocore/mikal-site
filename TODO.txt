@@ -1,1 +1,3 @@
 The mobile / portrait mode header menu blocks content, it shouldn't.
+The sidebar does not follow when you scroll / only the content area should scroll
+When using touch, and pulling website down, it looks pretty ugly. Maybe the entire container should have a border

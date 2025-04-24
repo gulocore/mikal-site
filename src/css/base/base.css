@@ -20,7 +20,7 @@ body {
     background-color: var(--color-background);
     min-height: 100vh;
     text-rendering: optimizeSpeed;
-    overflow-x: hidden; /* Prevent horizontal scrolling */
+    overflow: hidden; /* Prevent horizontal scrolling */
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -61,12 +61,13 @@ img, picture, video, canvas, svg {
     }
 }
 
-/* Layout using CSS Grid */
 .container {
     display: grid;
-    grid-template-columns: auto 1fr; /* First column auto-sized to content, second takes remaining */
-    min-height: 100vh;
+    /* First column auto-sized to content, second takes remaining */
+    grid-template-columns: auto 1fr;
+    height: 100vh;
     width: 100%;
+    overflow: hidden;
 }
 
 body.sidebar-collapsed .container {
@@ -74,11 +75,10 @@ body.sidebar-collapsed .container {
 }
 
 .content-wrapper {
-    grid-column: 2; /* Place in second column */
+    grid-column: 2;
     padding: var(--space-xl);
-    min-height: 100vh;
-
-    /* Add these properties for the column layout */
+    height: 100vh;
+    overflow-y: auto;
     display: flex;
     flex-direction: column;
 }

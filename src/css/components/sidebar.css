@@ -1,6 +1,7 @@
 /* Sidebar Navigation */
 .sidebar {
     grid-column: 1; /* Place in first column */
+    position: fixed;
     width: max-content; /* Fit content width */
     min-width: var(--sidebar-width-min);
     max-width: var(--sidebar-width-max);
@@ -192,6 +193,21 @@
 
 /* Mobile styles */
 @media (max-width: 768px) {
+
+    .container {
+        grid-template-columns: 1fr;
+    }
+
+    body.sidebar-collapsed .container {
+        grid-template-columns: 1fr;
+    }
+    .content-wrapper {
+        grid-column: 1;
+        padding: var(--space-md);
+        padding-top: calc(56px + var(--space-md));
+        margin-left: 0;
+    }
+
     .sidebar {
         position: fixed; /* Fixed position on mobile */
         left: -100%; /* Off-screen by default */

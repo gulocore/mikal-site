@@ -50,7 +50,7 @@
 
     /* Layout */
     --sidebar-width-max: 280px;
-    --sidebar-width-min: 150px;
+    --sidebar-width-min: 170px;
     --sidebar-collapsed-width: 60px;
     --sidebar-transition-speed: 0.1s;
     --border-radius: 4px;
