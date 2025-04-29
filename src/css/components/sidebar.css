@@ -235,4 +235,8 @@
     .mobile-title.collapsed {
         display: none;
     }
+
+    .mobile-header.collapsed {
+
+    }
 }

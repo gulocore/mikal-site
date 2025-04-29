@@ -102,7 +102,7 @@
         // Only act if we're in mobile mode and the sidebar is open
         if (window.innerWidth <= 768 && sidebar.classList.contains('open')) {
             sidebar.classList.remove('open');
-            mobileTitle.classList.toggle('collapsed');
+            mobileTitle.classList.remove('collapsed');
             // Change the mobile menu icon back to bars
             const icon = document.querySelector('#mobileMenuToggle i');
             icon.classList.remove('fa-xmark');
@@ -116,6 +116,7 @@
     // Restore sidebar state from localStorage on page load
     document.addEventListener('DOMContentLoaded', function() {
         const sidebar = document.getElementById('sidebar');
+        const mobileTitle = document.getElementById('mobileTitle');
         const isCollapsed = localStorage.getItem('sidebarCollapsed') === 'true';
 
         if (isCollapsed) {
@@ -129,7 +130,7 @@
                 // Reset sidebar state on mobile
                 sidebar.classList.remove('collapsed');
                 document.body.classList.remove('sidebar-collapsed');
-
+                mobileTitle.classList.remove('collapsed');
                 // Close mobile sidebar when resizing
                 if (sidebar.classList.contains('open')) {
                     sidebar.classList.remove('open');
