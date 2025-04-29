@@ -65,9 +65,7 @@ img, picture, video, canvas, svg {
 
 .container {
     background-color: var(--color-background);
-    display: grid;
-    /* First column auto-sized to content, second takes remaining */
-    grid-template-columns: auto 1fr;
+    display: flex;
     height: calc(100vh - (var(--container-padding) * 2));
     width: calc(100% - (var(--container-padding) * 2));
     margin: var(--container-padding);
@@ -78,17 +76,14 @@ img, picture, video, canvas, svg {
     border-radius: var(--border-radius);
 }
 
-body.sidebar-collapsed .container {
-    grid-template-columns: var(--sidebar-collapsed-width) 1fr;
-}
-
 .content-wrapper {
-    grid-column: 2;
+    flex-grow: 1;
     padding: var(--space-xl);
     height: 100vh;
     overflow-y: auto;
     display: flex;
     flex-direction: column;
+    transition: padding var(--sidebar-transition-speed) ease-out;
 }
 
 main {
@@ -99,7 +94,7 @@ main {
 }
 
 footer {
-    margin-top: auto; /* This pushes the footer to the bottom */
+    margin-top: auto;
     padding-top: var(--space-lg);
     padding-bottom: var(--space-lg);
     width: 100%;
@@ -109,7 +104,6 @@ footer {
     border-top: 1px solid var(--color-background-alt);
 }
 
-/* Responsive adjustments */
 @media (max-width: 768px) {
     .container {
         height: 100vh;
@@ -117,15 +111,9 @@ footer {
         margin: 0;
         border-radius: 0;
         border: none;
-        grid-template-columns: 1fr; /* Single column layout on mobile */
-    }
-
-    body.sidebar-collapsed .container {
-        grid-template-columns: 1fr; /* Maintain single column even when collapsed */
     }
 
     .content-wrapper {
-        grid-column: 1; /* Place in only column */
         padding: var(--space-md);
     }
 }
