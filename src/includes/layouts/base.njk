@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<headJ>
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ title }} | {{ global.website_title }}</title>
@@ -11,11 +11,11 @@
 <body>
 <!-- Mobile header - only shows on mobile -->
 <div class="mobile-header">
-    <div class="mobile-header-content">
+    <div class="mobile-header-content" id="mobileHeaderContent">
         <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle navigation menu">
             <i class="fas fa-bars"></i>
         </button>
-        <span class="mobile-title">{{ global.website_title }}</span>
+        <span class="mobile-title" id="mobileTitle">{{ global.website_title }}</span>
     </div>
 </div>
 
@@ -76,6 +76,8 @@
     // Mobile menu toggle
     document.getElementById('mobileMenuToggle').addEventListener('click', function() {
         const sidebar = document.getElementById('sidebar');
+        const mobileTitle = document.getElementById('mobileTitle');
+        mobileTitle.classList.toggle('collapsed');
         sidebar.classList.toggle('open');
 
         // Toggle icon between bars and X
@@ -94,12 +96,13 @@
 
     // Close sidebar when clicking content area in mobile mode
     document.querySelector('.content-wrapper').addEventListener('click', function() {
+        const mobileTitle = document.getElementById('mobileTitle');
         const sidebar = document.getElementById('sidebar');
 
         // Only act if we're in mobile mode and the sidebar is open
         if (window.innerWidth <= 768 && sidebar.classList.contains('open')) {
             sidebar.classList.remove('open');
-
+            mobileTitle.classList.toggle('collapsed');
             // Change the mobile menu icon back to bars
             const icon = document.querySelector('#mobileMenuToggle i');
             icon.classList.remove('fa-xmark');

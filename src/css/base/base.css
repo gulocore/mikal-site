@@ -7,6 +7,11 @@
     padding: 0;
 }
 
+/* Target all Font Awesome icons */
+.fas, .fa-solid, .far, .fa-regular, .fab, .fa-brands {
+    font-size: 1.5rem; /* Adjust size as needed */
+}
+
 html {
     font-size: 16px;
     -webkit-text-size-adjust: 100%;
