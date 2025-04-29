@@ -1,4 +1,7 @@
 :root {
+
+    --base-unit: clamp(0.9rem, 1vw + 0.4rem, 1.1rem);
+
     /* Deep Base Tones */
     --color-night-sky: #15192A;
     --color-twilight-haze: #262E47;
