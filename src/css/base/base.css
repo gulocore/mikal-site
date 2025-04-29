@@ -71,7 +71,8 @@ img, picture, video, canvas, svg {
     height: calc(100vh - (var(--container-padding) * 2));
     width: calc(100% - (var(--container-padding) * 2));
     margin: var(--container-padding);
-    box-shadow: 0 0 0 var(--border-thickness) var(--color-border-shadow);
+    border: var(--border-thickness) solid var(--color-border);
+    box-sizing: border-box;
     position: relative;
     overflow: hidden;
     border-radius: var(--border-radius);
@@ -115,7 +116,7 @@ footer {
         width: 100%;
         margin: 0;
         border-radius: 0;
-        box-shadow: none;
+        border: none;
         grid-template-columns: 1fr; /* Single column layout on mobile */
     }
 

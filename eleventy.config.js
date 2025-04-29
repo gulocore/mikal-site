@@ -56,7 +56,7 @@ module.exports = async function(eleventyConfig) {
           bundle: true,
           minify: true,
           sourcemap: process.env.NODE_ENV !== 'production',
-          outfile: './_site/js/bundle.js',
+          outfile: './_site/js/main.js',
           format: 'esm',
         });
         console.log('⚡ JS bundle created');

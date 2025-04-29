@@ -3,6 +3,7 @@
     --color-night-sky: #15192A;
     --color-twilight-haze: #262E47;
     --color-amethyst-dusk: #2A2042;
+    --color-black-haze: #000000;
 
     /* Text Tones */
     --color-frost-white: #E9EFF9;
@@ -21,7 +22,8 @@
 
     /* Semantic Mappings */
     --color-body-background: var(--color-winter-sky);
-    --color-border-shadow: var(--color-amethyst-dusk);
+    --color-border: var(--color-black-haze);
+    --color-sidebar-border: var(--color-black-haze);
     --color-background: var(--color-night-sky);
     --color-background-alt: var(--color-twilight-haze);
     --color-sidebar-bg: var(--color-amethyst-dusk);
@@ -37,6 +39,8 @@
     --color-link: var(--color-twilight-violet);
     --color-link-hover: var(--color-ice-blue);
 
+    --color-side-bar-header: var(--color-text-primary);
+
     /* Typography */
     --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     --font-serif: Georgia, 'Times New Roman', serif;
@@ -51,12 +55,16 @@
     --space-2xl: 3rem;    /* 48px */
 
     /* Layout */
-    --sidebar-width-max: 280px;
-    --sidebar-width-min: 170px;
+    --sidebar-width-max: 220px;
+    --sidebar-width-min: 200px;
     --sidebar-collapsed-width: 60px;
-    --sidebar-transition-speed: 0.1s;
+    --sidebar-transition-speed: 0.5s;
     --border-radius: 10px;
-    --border-thickness: 2px;
+    --border-thickness: 4px;
+    --border-sidebar-thickness: 2px;
     --container-padding: 7px;
     --content-max-width: 1200px;
+
+    /* Font sizes */
+    --fontsize-sidebar-header: 1.5rem;
 }

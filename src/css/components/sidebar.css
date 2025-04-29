@@ -2,16 +2,17 @@
 .sidebar {
     grid-column: 1;
     position: sticky;
-    width: max-content;
+    width: var(--sidebar-width-max);
     min-width: var(--sidebar-width-min);
     max-width: var(--sidebar-width-max);
     background-color: var(--color-sidebar-bg);
     height: 100vh;
     overflow-y: auto;
     overflow-x: hidden;
-    transition: all var(--sidebar-transition-speed) ease;
+    transition: all var(--sidebar-transition-speed) ease-out;
     z-index: 1000;
-    box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
+    border-right: var(--border-sidebar-thickness) solid var(--color-sidebar-border);
+    box-sizing: border-box;
     display: flex;
     flex-direction: column;
 }
@@ -25,15 +26,14 @@
 /* Sidebar header */
 .sidebar-header {
     padding: var(--space-md);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
 
 .sidebar-header h2 {
-    color: var(--color-text-primary);
-    font-size: 1.25rem;
+    color: var(--color-side-bar-header);
+    font-size: var(--fontsize-sidebar-header);
     font-weight: 600;
     margin-bottom: 0;
     white-space: nowrap;
@@ -50,6 +50,7 @@
 
 /* Sidebar navigation */
 .sidebar-nav {
+    font-size: 1.5rem;
     padding: var(--space-md) 0;
     flex-grow: 1;
 }
@@ -85,7 +86,7 @@
 }
 
 .sidebar-nav a span {
-    transition: opacity var(--sidebar-transition-speed) ease;
+    transition: opacity var(--sidebar-transition-speed) ease-out;
 }
 
 .sidebar-nav a:hover {
@@ -120,15 +121,16 @@
     background: transparent;
     border: none;
     color: var(--color-text-secondary);
-    width: 30px;
-    height: 30px;
+    width: 2rem;
+    height: 2rem;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
     border-radius: var(--border-radius);
     margin: var(--space-md);
-    transition: all 0.2s ease;
+    margin-bottom: 4rem;
+    transition: all var(--sidebar-transition-speed) ease-out;
     outline: none;
 }
 
@@ -138,12 +140,14 @@
 }
 
 .sidebar-toggle i {
-    transition: transform var(--sidebar-transition-speed) ease;
+    font-size: 1.2rem;
+    transition: transform var(--sidebar-transition-speed) ease-out;
 }
 
 .sidebar.collapsed .sidebar-toggle {
     align-self: center;
     margin: var(--space-sm) auto;
+    margin-bottom: 4rem;
 }
 
 .sidebar.collapsed .sidebar-toggle i {
@@ -217,7 +221,7 @@
         left: -100%; /* Off-screen by default */
         top: 56px; /* Start below mobile header */
         height: calc(100vh - 56px); /* Adjust height for header */
-        transition: left var(--sidebar-transition-speed) ease;
+        transition: left var(--sidebar-transition-speed) ease-out;
     }
 
     .sidebar.open {
