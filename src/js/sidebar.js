@@ -2,7 +2,6 @@
     // Enhanced toggle functionality for all screen sizes
     document.getElementById('sidebarToggle').addEventListener('click', function (e) {
         const sidebar = document.getElementById('sidebar');
-        console.log(sidebar.classList);
         // Remove the initial collapse state if it exists
         document.documentElement.classList.remove('sidebar-collapsed-init');
         sidebar.classList.toggle('collapsed');
@@ -12,9 +11,6 @@
         const isCollapsed = sidebar.classList.contains('collapsed');
 
         localStorage.setItem('sidebarCollapsed', isCollapsed);
-
-        console.log(sidebar.classList);
-
     });
 
     // Mobile menu toggle
