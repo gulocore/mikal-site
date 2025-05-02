@@ -12,7 +12,8 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "@11ty/eleventy": "^3.0.0"
+    "@11ty/eleventy": "^3.0.0",
+    "debug": "^4.4.0"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.21",
