@@ -3,7 +3,7 @@
     document.getElementById('sidebarToggle').addEventListener('click', function (e) {
         const sidebar = document.getElementById('sidebar');
         // Remove the initial collapse state if it exists
-        document.documentElement.classList.remove('sidebar-collapsed-init');
+        releaseSidebar();
         sidebar.classList.toggle('collapsed');
         document.body.classList.toggle('sidebar-collapsed');
 
@@ -16,7 +16,7 @@
     // Mobile menu toggle
     document.getElementById('mobileMenuToggle').addEventListener('click', function () {
         // Remove the initial collapse state if it exists
-        document.documentElement.classList.remove('sidebar-collapsed-init');
+        releaseSidebar();
         const sidebar = document.getElementById('sidebar');
         const mobileTitle = document.getElementById('mobileTitle');
         mobileTitle.classList.toggle('collapsed');
@@ -58,7 +58,6 @@
     // Restore sidebar state from localStorage on page load
     document.addEventListener('DOMContentLoaded', function () {
         // Remove the initial collapse state if it exists
-        document.documentElement.classList.remove('sidebar-collapsed-init');
         const sidebar = document.getElementById('sidebar');
         const mobileTitle = document.getElementById('mobileTitle');
         const isCollapsed = localStorage.getItem('sidebarCollapsed') === 'true';
@@ -88,8 +87,12 @@
                 sidebar.classList.add('collapsed');
             }
         }
-
         window.addEventListener('resize', handleResize);
         handleResize(); // Run once on load
     });
+
+    function releaseSidebar() {
+        document.documentElement.classList.remove('sidebar-collapsed-init');
+        document.documentElement.style.setProperty('--sidebar-active-transition-speed', '0.5s');
+    }
 }

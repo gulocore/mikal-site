@@ -12,6 +12,12 @@ module.exports = async function(eleventyConfig) {
   const esbuild = require('esbuild');
   const path = require('path');
 
+// Add language detection filter
+  eleventyConfig.addFilter("getLang", function(inputPath) {
+    const match = inputPath.match(/\/(?:root|site)\/([a-z]{2})\//);
+    return match ? match[1] : 'en';
+  });
+
   eleventyConfig.addWatchTarget("./src/**/*");
   eleventyConfig.setWatchJavaScriptDependencies(true);
   eleventyConfig.addPassthroughCopy({ "./src/assets/images": "img" });

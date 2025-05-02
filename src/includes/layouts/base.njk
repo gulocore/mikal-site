@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{% set lang = page.inputPath | getLang %}{{ lang }}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,6 +13,7 @@
         (function() {
             if (localStorage.getItem('sidebarCollapsed') === 'true') {
                 document.documentElement.classList.add('sidebar-collapsed-init');
+                document.documentElement.style.setProperty('--sidebar-active-transition-speed', '0s');
             }
         })();
     </script>
@@ -34,19 +35,43 @@
         <div class="sidebar-header">
             <h2>{{ global.website_title }}</h2>
         </div>
+
         <nav class="sidebar-nav">
             <ul>
-                <li><a href="/" {% if page.url == "/" %}class="active"{% endif %}>
-                        <i class="fas fa-home"></i> <span>Home</span>
-                    </a></li>
-                <li><a href="/about/" {% if page.url == "/about/" %}class="active"{% endif %}>
-                        <i class="fas fa-info-circle"></i> <span>About</span>
-                    </a></li>
-                <li><a href="/blog/" {% if page.url == "/blog/" %}class="active"{% endif %}>
-                        <i class="fas fa-pen"></i> <span>Blog</span>
-                    </a></li>
+                <li>
+                    <a href="/{{ lang }}/" {% if page.url == "/"+lang+"/" %}class="active"{% endif %}>
+                        <i class="fas fa-home"></i> <span>{{ i18n[lang].nav.home }}</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/{{ lang }}/about/" {% if page.url == "/"+lang+"/about/" %}class="active"{% endif %}>
+                        <i class="fas fa-info-circle"></i> <span>{{ i18n[lang].nav.about }}</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/{{ lang }}/blog/" {% if page.url == "/"+lang+"/blog/" %}class="active"{% endif %}>
+                        <i class="fas fa-pen"></i> <span>{{ i18n[lang].nav.blog }}</span>
+                    </a>
+                </li>
             </ul>
         </nav>
+
+        <div class="language-switcher">
+            {% for langCode in ['en', 'sv', 'no'] %}
+                {% if page.url == "/" + lang + "/" %}
+                    <!-- If on homepage, link directly to the language homepage -->
+                    <a href="/{{ langCode }}/" {% if lang == langCode %}class="active"{% endif %}>
+                        {{ langCode | upper }}
+                    </a>
+                {% else %}
+                    <!-- For other pages, preserve the page slug -->
+                    {% set pagePath = page.url | replace("/" + lang + "/", "") %}
+                    <a href="/{{ langCode }}/{{ pagePath }}" {% if lang == langCode %}class="active"{% endif %}>
+                        {{ langCode | upper }}
+                    </a>
+                {% endif %}
+            {% endfor %}
+        </div>
 
         <button class="sidebar-toggle" id="sidebarToggle" aria-label="Toggle sidebar">
             <i class="fas fa-chevron-left"></i>
