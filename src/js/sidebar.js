@@ -5,12 +5,6 @@
         console.log(sidebar.classList);
         // Remove the initial collapse state if it exists
         document.documentElement.classList.remove('sidebar-collapsed-init');
-        // If we're in mobile mode and the sidebar is open, don't allow collapse
-        if (window.innerWidth <= 768 && sidebar.classList.contains('open')) {
-            console.log('Nigga we in mobile mode');
-            e.stopPropagation();
-            return false;
-        }
         sidebar.classList.toggle('collapsed');
         document.body.classList.toggle('sidebar-collapsed');
 
@@ -25,6 +19,8 @@
 
     // Mobile menu toggle
     document.getElementById('mobileMenuToggle').addEventListener('click', function () {
+        // Remove the initial collapse state if it exists
+        document.documentElement.classList.remove('sidebar-collapsed-init');
         const sidebar = document.getElementById('sidebar');
         const mobileTitle = document.getElementById('mobileTitle');
         mobileTitle.classList.toggle('collapsed');
@@ -65,6 +61,8 @@
 
     // Restore sidebar state from localStorage on page load
     document.addEventListener('DOMContentLoaded', function () {
+        // Remove the initial collapse state if it exists
+        document.documentElement.classList.remove('sidebar-collapsed-init');
         const sidebar = document.getElementById('sidebar');
         const mobileTitle = document.getElementById('mobileTitle');
         const isCollapsed = localStorage.getItem('sidebarCollapsed') === 'true';
@@ -89,6 +87,9 @@
                     icon.classList.add('fa-bars');
                     document.getElementById('mobileMenuToggle').setAttribute('aria-expanded', 'false');
                 }
+            }
+            else if (localStorage.getItem('sidebarCollapsed') === 'true') {
+                sidebar.classList.add('collapsed');
             }
         }
 
