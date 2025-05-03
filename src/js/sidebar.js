@@ -93,6 +93,6 @@
 
     function releaseSidebar() {
         document.documentElement.classList.remove('sidebar-collapsed-init');
-        document.documentElement.style.setProperty('--sidebar-active-transition-speed', '0.5s');
+        document.documentElement.style.setProperty('--sidebar-active-transition-speed', 'var(--sidebar-transition-speed)');
     }
 }

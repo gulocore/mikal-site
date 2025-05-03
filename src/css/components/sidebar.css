@@ -36,6 +36,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    transition: padding var(--sidebar-active-transition-speed) ease-out;
 }
 
 .sidebar-header h2 {
@@ -44,6 +45,12 @@
     font-weight: 600;
     margin-bottom: 0;
     white-space: nowrap;
+    transition: opacity var(--sidebar-active-transition-speed) ease-out,
+    max-width var(--sidebar-active-transition-speed) ease-out,
+    margin-right var(--sidebar-active-transition-speed) ease-out;
+    opacity: 1;
+    max-width: var(--sidebar-width-max);
+    overflow: hidden;
 }
 
 .sidebar.collapsed .sidebar-header {
@@ -52,7 +59,12 @@
 }
 
 .sidebar.collapsed .sidebar-header h2 {
-    display: none;
+    opacity: 0;
+    max-width: 0;
+    margin-right: 0;
+    transition: opacity var(--sidebar-active-transition-speed) ease-out,
+    max-width var(--sidebar-active-transition-speed) ease-out,
+    margin-right var(--sidebar-active-transition-speed) ease-out;
 }
 
 /* Sidebar navigation */
@@ -79,9 +91,11 @@
     padding: var(--space-sm) var(--space-md);
     color: var(--color-text-secondary);
     font-weight: 500;
-    transition: all 0.2s ease;
+    transition: all var(--sidebar-active-transition-speed) ease-out,
+    padding var(--sidebar-active-transition-speed) ease-out;
     white-space: nowrap;
     width: 100%;
+    overflow: hidden;
 }
 
 .sidebar-nav a i {
@@ -90,10 +104,17 @@
     min-width: 2.5rem;
     text-align: center;
     flex-shrink: 0;
+    transition: margin-right var(--sidebar-active-transition-speed) ease-out;
 }
 
 .sidebar-nav a span {
-    transition: opacity var(--sidebar-active-transition-speed) ease-out;
+    transition: opacity var(--sidebar-active-transition-speed) ease-out,
+    width var(--sidebar-active-transition-speed) ease-out;
+    opacity: 1;
+    width: var(--sidebar-width-max);
+    overflow: hidden;
+    white-space: nowrap;
+    display: inline-block;
 }
 
 .sidebar-nav a:hover {
@@ -119,7 +140,9 @@
 }
 
 .sidebar.collapsed .sidebar-nav a span {
-    display: none;
+    opacity: 0;
+    width: 0;
+    display: block;
 }
 
 /* Toggle button */
