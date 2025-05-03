@@ -1,0 +1,67 @@
+/*
+ * Scrollbar Styling
+ * Custom scrollbar styling for the site with default and hidden variants
+ */
+
+/* Default scrollbar variables */
+:root {
+    --scrollbar-width: 5px;
+    --scrollbar-border-radius: 2px;
+}
+
+/*
+ * Default scrollbar styling
+ * Applied to main scrollable elements
+ */
+.content-wrapper,
+.sidebar,
+html, body {
+    /* Firefox */
+    scrollbar-width: thin !important;
+    scrollbar-color: var(--scrollbar-thumb-color) var(--scrollbar-track-color) !important;
+}
+
+/* WebKit scrollbar styling (Chrome, Safari, Edge) */
+.content-wrapper::-webkit-scrollbar,
+.sidebar::-webkit-scrollbar,
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+    width: var(--scrollbar-width) !important;
+    height: var(--scrollbar-width) !important;
+    background-color: var(--scrollbar-track-color) !important;
+}
+
+.content-wrapper::-webkit-scrollbar-track,
+.sidebar::-webkit-scrollbar-track,
+html::-webkit-scrollbar-track,
+body::-webkit-scrollbar-track {
+    background: var(--scrollbar-track-color) !important;
+    border-radius: var(--scrollbar-border-radius) !important;
+}
+
+.content-wrapper::-webkit-scrollbar-thumb,
+.sidebar::-webkit-scrollbar-thumb,
+html::-webkit-scrollbar-thumb,
+body::-webkit-scrollbar-thumb {
+    background: var(--scrollbar-thumb-color) !important;
+    border-radius: var(--scrollbar-border-radius) !important;
+}
+
+/*
+ * Hidden scrollbar class
+ * Apply to any element where you want scrolling without visible scrollbars
+ */
+.scrollbar-hidden {
+    /* Firefox */
+    scrollbar-width: none !important;
+
+    /* Internet Explorer/Edge */
+    -ms-overflow-style: none !important;
+}
+
+.scrollbar-hidden::-webkit-scrollbar {
+    width: 0 !important;
+    height: 0 !important;
+    background: transparent !important;
+    display: none !important;
+}

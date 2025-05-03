@@ -70,4 +70,8 @@
 
     /* Font sizes */
     --fontsize-sidebar-header: 1.5rem;
+
+    /* Scrollbar */
+    --scrollbar-track-color: color-mix(in srgb, var(--color-night-sky), transparent 90%);
+    --scrollbar-thumb-color: color-mix(in srgb, var(--color-accent-primary), transparent 20%); /* 80% opacity */
 }

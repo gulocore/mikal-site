@@ -2,6 +2,7 @@
 @import 'base/base.css';
 
 /* Components */
+@import 'components/scrollbar.css';
 @import 'components/sidebar.css';
 
 /* Theme */
