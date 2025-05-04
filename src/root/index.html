@@ -1,9 +1,54 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="UTF-8">
+    <title>Redirecting...</title>
+    <script>
+
+        const LANG_PREF_KEY = 'languagePreference';
+
+
+        // This is used only for the initial visit to determine default language
+        const DOMAIN_DEFAULTS = {
+            'com': 'en',
+            'se': 'sv',
+            'no': 'no'
+        };
+
+        function getDefaultLanguage() {
+            const hostname = window.location.hostname;
+            const domainExt = hostname.split('.').pop();
+
+            return DOMAIN_DEFAULTS[domainExt] || 'en';
+        }
+
+
+        function getStoredLanguagePreference() {
+            return localStorage.getItem(LANG_PREF_KEY);
+        }
+
+
+        function getRedirectLanguage() {
+            // Always prioritize stored preference if it exists
+            const storedPref = getStoredLanguagePreference();
+            if (storedPref) {
+                return storedPref;
+            }
+
+            // If no preference exists, use domain default and save it
+            const defaultLang = getDefaultLanguage();
+            localStorage.setItem(LANG_PREF_KEY, defaultLang);
+            return defaultLang;
+        }
+
+        // Redirect to appropriate language version
+        const targetLang = getRedirectLanguage();
+        window.location.href = '/' + targetLang + '/';
+    </script>
+    <!-- Fallback meta redirect if JavaScript is disabled -->
     <meta http-equiv="refresh" content="0;url=/en/" />
 </head>
 <body>
-<p>Redirecting to <a href="/en/">English version</a>...</p>
+<p>Redirecting to appropriate language version...</p>
 </body>
 </html>
