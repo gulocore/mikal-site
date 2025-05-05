@@ -1,8 +1,16 @@
 :root {
     --mobile-header-height: 3.5rem;
     --sidebar-active-transition-speed: var(--sidebar-transition-speed);
+    --sidebar-z-index: 1000;
+    --mobile-header-z-index: 1001;
+    --sidebar-width-max: 210px;
+    --sidebar-width-min: 210px;
+    --sidebar-collapsed-width: 50px;
+    --sidebar-transition-speed: 0.7s;
+    --fontsize-sidebar-header: 1.5rem;
+    --border-sidebar-thickness: calc(var(--border-thickness) / 2);
+    --border-mobile-sidebar-thickness: 1px;
 }
-
 
 /* Sidebar Navigation */
 .sidebar {
@@ -16,7 +24,7 @@
     overflow-x: hidden;
     transition: max-width var(--sidebar-active-transition-speed) ease-out,
     min-width var(--sidebar-active-transition-speed) ease-out;
-    z-index: 1000;
+    z-index: var(--sidebar-z-index);
     border-right: var(--border-sidebar-thickness) solid var(--color-sidebar-border);
     box-sizing: border-box;
     display: flex;
@@ -32,10 +40,10 @@
 
 /* Sidebar header */
 .sidebar-header {
-    padding: var(--space-md);
+    padding: var(--space-sm);
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
     transition: padding var(--sidebar-active-transition-speed) ease-out;
 }
 
@@ -54,7 +62,7 @@
 }
 
 .sidebar.collapsed .sidebar-header {
-    padding: var(--space-sm);
+    padding: var(--space-xs);
     justify-content: center;
 }
 
@@ -195,7 +203,7 @@
     border-bottom: 1px solid var(--color-sidebar-border);
     background-color: var(--color-sidebar-bg);
     box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
-    z-index: 1001;
+    z-index: var(--mobile-header-z-index);
     padding: 0 var(--space-md);
 }
 
@@ -203,7 +211,7 @@
     display: flex;
     align-items: center;
     height: 100%;
-    max-width: 1200px;
+    max-width: var(--content-max-width);
     margin: 0 auto;
 }
 
@@ -297,6 +305,7 @@
         top: var(--mobile-header-height); /* Start below mobile header */
         height: calc(100vh - var(--mobile-header-height)); /* Adjust height for header */
         transition: left var(--sidebar-active-transition-speed) ease-out;
+        border-right: var(--border-mobile-sidebar-thickness) solid var(--color-sidebar-border);
     }
 
     .sidebar.open {

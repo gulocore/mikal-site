@@ -1,0 +1,2 @@
+ - Revamp theme: one light and one dark
+ - Implement multi-theme support

@@ -86,7 +86,13 @@ document.addEventListener('DOMContentLoaded', function () {
                 document.getElementById('mobileMenuToggle').setAttribute('aria-expanded', 'false');
             }
         } else if (localStorage.getItem('sidebarCollapsed') === 'true') {
+            document.documentElement.style.setProperty('--sidebar-active-transition-speed', '0');
             sidebar.classList.add('collapsed');
+            // Need a small timer to avoid applying instantly due to batching
+            setTimeout(() => {
+                document.documentElement.style.setProperty('--sidebar-active-transition-speed',
+                    'var(--sidebar-transition-speed)');
+            }, 50);
         }
     }
 

@@ -3,52 +3,35 @@
     --scrollbar-border-radius: 2px;
 }
 
-/*
- * Default scrollbar styling
- */
-.content-wrapper,
-.sidebar,
-html, body {
+/* Common scrollable elements */
+.content-wrapper, .sidebar, html, body {
     /* Firefox */
     scrollbar-width: thin !important;
     scrollbar-color: var(--scrollbar-thumb-color) var(--scrollbar-track-color) !important;
 }
 
-/* WebKit scrollbar styling (Chrome, Safari, Edge) */
-.content-wrapper::-webkit-scrollbar,
-.sidebar::-webkit-scrollbar,
-html::-webkit-scrollbar,
-body::-webkit-scrollbar {
+/* WebKit scrollbar combined selectors */
+.content-wrapper::-webkit-scrollbar, .sidebar::-webkit-scrollbar,
+html::-webkit-scrollbar, body::-webkit-scrollbar {
     width: var(--scrollbar-width) !important;
     height: var(--scrollbar-width) !important;
     background-color: var(--scrollbar-track-color) !important;
 }
 
-.content-wrapper::-webkit-scrollbar-track,
-.sidebar::-webkit-scrollbar-track,
-html::-webkit-scrollbar-track,
-body::-webkit-scrollbar-track {
+.content-wrapper::-webkit-scrollbar-track, .sidebar::-webkit-scrollbar-track,
+html::-webkit-scrollbar-track, body::-webkit-scrollbar-track {
     background: var(--scrollbar-track-color) !important;
     border-radius: var(--scrollbar-border-radius) !important;
 }
 
-.content-wrapper::-webkit-scrollbar-thumb,
-.sidebar::-webkit-scrollbar-thumb,
-html::-webkit-scrollbar-thumb,
-body::-webkit-scrollbar-thumb {
+.content-wrapper::-webkit-scrollbar-thumb, .sidebar::-webkit-scrollbar-thumb,
+html::-webkit-scrollbar-thumb, body::-webkit-scrollbar-thumb {
     background: var(--scrollbar-thumb-color) !important;
     border-radius: var(--scrollbar-border-radius) !important;
 }
 
-/*
- * Hidden scrollbar class
- * Apply to any element where you want scrolling without visible scrollbars
- */
 .scrollbar-hidden {
-    /* Firefox */
     scrollbar-width: none !important;
-
-    /* Internet Explorer/Edge */
     -ms-overflow-style: none !important;
 }
 

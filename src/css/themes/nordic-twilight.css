@@ -1,32 +1,25 @@
 :root {
-
     --base-unit: clamp(0.9rem, 1vw + 0.4rem, 1.1rem);
 
-    /* Deep Base Tones */
+    /* Primary Color Palette */
     --color-night-sky: #15192A;
-    --color-twilight-haze: #262E47;
     --color-amethyst-dusk: #2A2042;
-    --color-black-haze: #000000;
-
-    /* Text Tones */
     --color-frost-white: #E9EFF9;
-    --color-glacier-blue: #8896B9;
-    --color-winter-sky: #A2C1E3;
-
-    /* Aurora Accents */
     --color-aurora-teal: #63C9B3;
-    --color-fjord-blue: #7EB8C5;
     --color-aurora-purple: #9B7EC5;
-
-    /* Brand Alternatives */
     --color-twilight-violet: #636ED1;
-    --color-deep-fjord: #16213A;
-    --color-ice-blue: #88CFDA;
+
+    /* Derived Colors */
+    --color-twilight-haze: color-mix(in srgb, var(--color-night-sky), white 15%);
+    --color-glacier-blue: color-mix(in srgb, var(--color-frost-white), var(--color-night-sky) 30%);
+    --color-winter-sky: color-mix(in srgb, var(--color-frost-white), var(--color-twilight-violet) 10%);
+    --color-fjord-blue: color-mix(in srgb, var(--color-aurora-teal), var(--color-frost-white) 30%);
+    --color-ice-blue: color-mix(in srgb, var(--color-aurora-teal), var(--color-frost-white) 40%);
 
     /* Semantic Mappings */
     --color-body-background: var(--color-winter-sky);
-    --color-border: var(--color-black-haze);
-    --color-sidebar-border: var(--color-black-haze);
+    --color-border: #000000;
+    --color-sidebar-border: #000000;
     --color-background: var(--color-night-sky);
     --color-background-alt: var(--color-twilight-haze);
     --color-sidebar-bg: var(--color-amethyst-dusk);
@@ -44,34 +37,12 @@
 
     --color-side-bar-header: var(--color-text-primary);
 
-    /* Typography */
+    /* Fonts */
     --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     --font-serif: Georgia, 'Times New Roman', serif;
     --font-mono: 'JetBrains Mono', Consolas, Monaco, 'Andale Mono', monospace;
 
-    /* Spacing */
-    --space-xs: 0.25rem; /* 4px */
-    --space-sm: 0.5rem; /* 8px */
-    --space-md: 1rem; /* 16px */
-    --space-lg: 1.5rem; /* 24px */
-    --space-xl: 2rem; /* 32px */
-    --space-2xl: 3rem; /* 48px */
-
-    /* Layout */
-    --sidebar-width-max: 210px;
-    --sidebar-width-min: 210px;
-    --sidebar-collapsed-width: 60px;
-    --sidebar-transition-speed: 0.7s;
-    --border-radius: 10px;
-    --border-thickness: 4px;
-    --border-sidebar-thickness: 2px;
-    --container-padding: 7px;
-    --content-max-width: 1200px;
-
-    /* Font sizes */
-    --fontsize-sidebar-header: 1.5rem;
-
     /* Scrollbar */
     --scrollbar-track-color: color-mix(in srgb, var(--color-night-sky), transparent 90%);
-    --scrollbar-thumb-color: color-mix(in srgb, var(--color-accent-primary), transparent 20%); /* 80% opacity */
+    --scrollbar-thumb-color: color-mix(in srgb, var(--color-accent-primary), transparent 20%);
 }

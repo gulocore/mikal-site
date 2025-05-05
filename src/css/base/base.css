@@ -1,4 +1,19 @@
-/* Modern CSS Reset */
+:root {
+    /* Spacing - derived from base unit */
+    --space-base: 1rem;
+    --space-xs: calc(var(--space-base) * 0.25); /* 4px */
+    --space-sm: calc(var(--space-base) * 0.5); /* 8px */
+    --space-md: var(--space-base); /* 16px */
+    --space-lg: calc(var(--space-base) * 1.5); /* 24px */
+    --space-xl: calc(var(--space-base) * 2); /* 32px */
+    --space-2xl: calc(var(--space-base) * 3); /* 48px */
+
+    --border-radius: 10px;
+    --border-thickness: 4px;
+    --container-padding: 7px;
+    --content-max-width: 1200px;
+}
+
 *,
 *::before,
 *::after {
@@ -7,9 +22,9 @@
     padding: 0;
 }
 
-/* Target all Font Awesome icons */
+/* Common icon sizing */
 .fas, .fa-solid, .far, .fa-regular, .fab, .fa-brands {
-    font-size: 1.5rem; /* Adjust size as needed */
+    font-size: 1.5rem;
 }
 
 html {
@@ -25,11 +40,11 @@ body {
     background-color: var(--color-body-background);
     min-height: 100vh;
     text-rendering: optimizeSpeed;
-    padding: 0;
     margin: 0;
-    overflow: hidden; /* Prevent horizontal scrolling */
+    overflow: hidden;
 }
 
+/* Typography */
 h1, h2, h3, h4, h5, h6 {
     line-height: 1.2;
     margin-bottom: var(--space-md);
@@ -43,6 +58,7 @@ ul, ol {
     padding-left: var(--space-xl);
 }
 
+/* Links */
 a {
     color: var(--color-link);
     text-decoration: none;
@@ -53,28 +69,20 @@ a:hover {
     color: var(--color-link-hover);
 }
 
+/* Media */
 img, picture, video, canvas, svg {
     display: block;
     max-width: 100%;
 }
 
-/* Special state to apply before DOMContent is loaded to the sidebar */
+/* Special sidebar init state */
 html.sidebar-collapsed-init .sidebar {
     min-width: var(--sidebar-collapsed-width);
     max-width: var(--sidebar-collapsed-width);
     width: var(--sidebar-collapsed-width);
 }
 
-/* Remove animations for people who've turned them off */
-@media (prefers-reduced-motion: reduce) {
-    *, *::before, *::after {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
-        scroll-behavior: auto !important;
-    }
-}
-
+/* Layout components */
 .container {
     background-color: var(--color-background);
     display: flex;
@@ -82,7 +90,6 @@ html.sidebar-collapsed-init .sidebar {
     width: calc(100% - (var(--container-padding) * 2));
     margin: var(--container-padding);
     border: var(--border-thickness) solid var(--color-border);
-    box-sizing: border-box;
     position: relative;
     overflow: hidden;
     border-radius: var(--border-radius);
@@ -99,7 +106,7 @@ html.sidebar-collapsed-init .sidebar {
 }
 
 main {
-    flex-grow: 1; /* This makes the main content expand */
+    flex-grow: 1;
     max-width: 800px;
     width: 100%;
     margin: 0 auto;
@@ -107,8 +114,7 @@ main {
 
 footer {
     margin-top: auto;
-    padding-top: var(--space-lg);
-    padding-bottom: var(--space-lg);
+    padding: var(--space-lg) 0;
     width: 100%;
     color: var(--color-text-secondary);
     font-size: 0.9rem;
@@ -116,6 +122,16 @@ footer {
     border-top: 1px solid var(--color-background-alt);
 }
 
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+/* Mobile styles */
 @media (max-width: 768px) {
     .container {
         height: 100vh;

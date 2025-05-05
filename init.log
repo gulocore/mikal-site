@@ -1,8 +1,0 @@
-This file is a manually curated log of the setup steps taken to initialize this project
-
-git init
-npm init -y
-npm install @11ty/eleventy
-echo '<!doctype html><title>Page title</title><p>Hi</p>' > index.html
-echo '# Heading' > README.md
-
