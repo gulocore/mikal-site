@@ -1,0 +1,16 @@
+{
+  "heading": "Hei Verden!",
+  "introText": "Dette er en testside for å bekrefte at grunnleggende layout fungerer korrekt.",
+  "demoTitle": "Temafarge-demonstrasjon",
+  "accentPrimary": "Primær Aksent",
+  "accentSecondary": "Sekundær Aksent",
+  "accentTertiary": "Tertiær Aksent",
+  "backgroundAlt": "Alternativ Bakgrunn",
+  "background": "Bakgrunn",
+  "textPrimary": "Primær Tekst",
+  "textSecondary": "Sekundær Tekst",
+  "textAccent": "Aksent Tekst",
+  "links": "Lenker",
+  "linksHover": "Lenker Hover",
+  "outroText": "Hvis du kan se dette innholdet med riktig styling og sidenavigasjon, fungerer layouten din!"
+}

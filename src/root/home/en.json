@@ -1,0 +1,16 @@
+{
+  "heading": "Hello World!",
+  "introText": "This is a test page to verify that the base layout is working correctly.",
+  "demoTitle": "Theme Colors Demo",
+  "accentPrimary": "Accent Primary",
+  "accentSecondary": "Accent Secondary",
+  "accentTertiary": "Accent Tertiary",
+  "backgroundAlt": "Background Alt",
+  "background": "Background",
+  "textPrimary": "Text Primary",
+  "textSecondary": "Text Secondary",
+  "textAccent": "Text Accent",
+  "links": "Links",
+  "linksHover": "Links Hover",
+  "outroText": "If you can see this content with the proper styling and sidebar navigation, your layout is working!"
+}

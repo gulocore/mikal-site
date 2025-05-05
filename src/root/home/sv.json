@@ -1,0 +1,16 @@
+{
+  "heading": "Hej Världen!",
+  "introText": "Detta är en testsida för att verifiera att baslayouten fungerar korrekt.",
+  "demoTitle": "Temafärgs-demo",
+  "accentPrimary": "Primär Accent",
+  "accentSecondary": "Sekundär Accent",
+  "accentTertiary": "Tertiär Accent",
+  "backgroundAlt": "Alternativ Bakgrund",
+  "background": "Bakgrund",
+  "textPrimary": "Primär Text",
+  "textSecondary": "Sekundär Text",
+  "textAccent": "Accent Text",
+  "links": "Länkar",
+  "linksHover": "Länkar Hover",
+  "outroText": "Om du kan se detta innehåll med rätt styling och sidnavigering fungerar din layout!"
+}
