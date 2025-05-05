@@ -10,7 +10,7 @@
     <script>
         // If sidebar is already collapsed, apply an initial collapsed state
         // to avoid flicker effect
-        (function() {
+        (function () {
             if (localStorage.getItem('sidebarCollapsed') === 'true') {
                 document.documentElement.classList.add('sidebar-collapsed-init');
                 document.documentElement.style.setProperty('--sidebar-active-transition-speed', '0s');
@@ -58,18 +58,11 @@
 
         <div class="language-switcher">
             {% for langCode in ['en', 'sv', 'no'] %}
-                {% if page.url == "/" + lang + "/" %}
-                    <!-- If on homepage, link directly to the language homepage -->
-                    <a href="/{{ langCode }}/" {% if lang == langCode %}class="active"{% endif %}>
-                        {{ langCode | upper }}
-                    </a>
-                {% else %}
-                    <!-- For other pages, preserve the page slug -->
-                    {% set pagePath = page.url | replace("/" + lang + "/", "") %}
-                    <a href="/{{ langCode }}/{{ pagePath }}" {% if lang == langCode %}class="active"{% endif %}>
-                        {{ langCode | upper }}
-                    </a>
-                {% endif %}
+                {% set pagePath = page.url | replace("/" + lang + "/", "") %}
+                <a href="/{{ langCode }}/{% if pagePath %}{{ pagePath }}{% endif %}"
+                   {% if lang == langCode %}class="active"{% endif %}>
+                    {{ langCode | upper }}
+                </a>
             {% endfor %}
         </div>
 

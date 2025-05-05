@@ -65,7 +65,7 @@ function setupLanguageSwitcher() {
     const languageSwitcher = document.querySelector('.language-switcher');
 
     if (languageSwitcher) {
-        languageSwitcher.addEventListener('click', function(e) {
+        languageSwitcher.addEventListener('click', function (e) {
             // Check if we clicked on a language link
             if (e.target.tagName === 'A') {
                 // Extract language code from href
@@ -82,15 +82,8 @@ function setupLanguageSwitcher() {
 }
 
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
 
     setupLanguageSwitcher();
     redirectToPreferredLanguageIfNeeded();
 });
-
-
-export {
-    getCurrentLanguageFromPath,
-    getStoredLanguagePreference,
-    saveLanguagePreference
-};

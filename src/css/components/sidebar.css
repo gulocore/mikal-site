@@ -206,6 +206,7 @@
     max-width: 1200px;
     margin: 0 auto;
 }
+
 /* The */
 .mobile-menu-toggle {
     background: transparent;
@@ -292,7 +293,7 @@
 
     .sidebar {
         position: fixed;
-        transform: translateX(-100%);/* Off-screen by default */
+        transform: translateX(-100%); /* Off-screen by default */
         top: var(--mobile-header-height); /* Start below mobile header */
         height: calc(100vh - var(--mobile-header-height)); /* Adjust height for header */
         transition: left var(--sidebar-active-transition-speed) ease-out;
