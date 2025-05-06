@@ -12,9 +12,13 @@ layout: layouts/base.njk
         {%- for post in collections.blog | reverse -%}
             {% set postUrl = post.url %}
             {% set postDate = post.date | date('YYYY-MM-DD') %}
-            {% set postTitle = post.data.title or 'Post Title' %}
-            {% set postExcerpt = post.data.excerpt or '' %}
+
+            {# Get language-specific post data #}
+            {% set postLangData = post | getPostLangData(lang) %}
+            {% set postTitle = postLangData.title or post.data.title or 'Post Title' %}
+            {% set postExcerpt = postLangData.excerpt or post.data.excerpt or '' %}
             {% set postThumbnail = post.data.thumbnail or '/img/default-thumbnail.jpg' %}
+            {% set postPath = post.filePathStem | replace('/root/blog/posts/', '') | replace('/index', '') %}
 
             <article class="post-card">
                 <a href="{{ postUrl }}?lang={{ lang }}" class="post-link">
@@ -23,8 +27,8 @@ layout: layouts/base.njk
                     </div>
                     <div class="post-content">
                         <time class="post-date">{{ postDate }}</time>
-                        <h2 class="post-title">{{ postTitle }}</h2>
-                        <p class="post-excerpt">{{ postExcerpt }}</p>
+                        <h2 class="post-title" data-post-title="{{ postPath }}">{{ postTitle }}</h2>
+                        <p class="post-excerpt" data-post-excerpt="{{ postPath }}">{{ postExcerpt }}</p>
                         <span class="read-more" data-string="readMore">Read More</span>
                     </div>
                 </a>

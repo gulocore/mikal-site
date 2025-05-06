@@ -7,6 +7,46 @@ const path = require('path');
 module.exports = function(eleventyConfig) {
     eleventyConfig.addGlobalData("availableLanguages", ["en", "no", "sv"]);
 
+    // Add a filter to get language-specific post data
+    eleventyConfig.addFilter("getPostLangData", function(post, lang) {
+        if (!post || !post.inputPath) {
+            return {};
+        }
+
+        // Get directory path of the post
+        const dirPath = path.dirname(post.inputPath);
+
+        // Default language if requested language is not available
+        const defaultLang = "en";
+
+        // Try to load language-specific data
+        const langFile = path.join(dirPath, `${lang}.json`);
+        if (fs.existsSync(langFile)) {
+            try {
+                const content = fs.readFileSync(langFile, 'utf8');
+                return JSON.parse(content);
+            } catch (error) {
+                console.error(`Error loading ${lang}.json for post ${post.inputPath}: ${error.message}`);
+            }
+        }
+
+        // Fall back to default language if specified language not found
+        if (lang !== defaultLang) {
+            const defaultFile = path.join(dirPath, `${defaultLang}.json`);
+            if (fs.existsSync(defaultFile)) {
+                try {
+                    const content = fs.readFileSync(defaultFile, 'utf8');
+                    return JSON.parse(content);
+                } catch (error) {
+                    console.error(`Error loading fallback ${defaultLang}.json for post ${post.inputPath}: ${error.message}`);
+                }
+            }
+        }
+
+        // Return empty object if no language file found
+        return {};
+    });
+
     // Add a shortcode to serialize the string data for client-side use
     eleventyConfig.addShortcode("languageData", function() {
         const inputPath = this.page.inputPath;

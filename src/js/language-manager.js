@@ -115,6 +115,90 @@ function updateNavigationLinks(langCode) {
 }
 
 /**
+ * Update post cards with the specified language
+ * @param {string} langCode - Language code to use
+ */
+function updatePostCards(langCode) {
+    // Skip if no post cards
+    const postTitles = document.querySelectorAll('[data-post-title]');
+    const postExcerpts = document.querySelectorAll('[data-post-excerpt]');
+    if (postTitles.length === 0 && postExcerpts.length === 0) return;
+
+    // Function to fetch language data for a post
+    async function fetchPostLangData(postPath) {
+        try {
+            // Fix for double path - check if path already contains '/blog/posts/'
+            const urlPath = postPath.startsWith('/blog/posts/')
+                ? postPath
+                : `/blog/posts/${postPath}`;
+
+            const response = await fetch(`${urlPath}/${langCode}.json`);
+            if (response.ok) {
+                return await response.json();
+            }
+        } catch (error) {
+            console.error(`Error fetching language data for post ${postPath}:`, error);
+        }
+
+        // Fallback to English if requested language not available
+        if (langCode !== 'en') {
+            try {
+                // Same path check for fallback
+                const fallbackPath = postPath.startsWith('/blog/posts/')
+                    ? postPath
+                    : `/blog/posts/${postPath}`;
+
+                const fallbackResponse = await fetch(`${fallbackPath}/en.json`);
+                if (fallbackResponse.ok) {
+                    return await fallbackResponse.json();
+                }
+            } catch (error) {
+                console.error(`Error fetching fallback language data for post ${postPath}:`, error);
+            }
+        }
+
+        return null;
+    }
+
+    // Collect all unique post paths
+    const postPaths = new Set();
+    postTitles.forEach(el => postPaths.add(el.getAttribute('data-post-title')));
+    postExcerpts.forEach(el => postPaths.add(el.getAttribute('data-post-excerpt')));
+
+    // Fetch and update each post's language data
+    postPaths.forEach(async function(path) {
+        if (!path) return;
+
+        const langData = await fetchPostLangData(path);
+        if (!langData) return;
+
+        // Update titles
+        const titleElements = document.querySelectorAll(`[data-post-title="${path}"]`);
+        if (langData.title) {
+            titleElements.forEach(el => {
+                el.textContent = langData.title;
+            });
+        }
+
+        // Update excerpts
+        const excerptElements = document.querySelectorAll(`[data-post-excerpt="${path}"]`);
+        if (langData.excerpt) {
+            excerptElements.forEach(el => {
+                el.textContent = langData.excerpt;
+            });
+        }
+    });
+
+    // Update post links to include current language
+    const postLinks = document.querySelectorAll('.post-link');
+    postLinks.forEach(link => {
+        const href = link.getAttribute('href');
+        const baseUrl = href.split('?')[0];
+        link.setAttribute('href', `${baseUrl}?lang=${langCode}`);
+    });
+}
+
+/**
  * Apply language based on URL parameters and stored preferences
  */
 function applyLanguagePreferences() {
@@ -143,6 +227,9 @@ function applyLanguagePreferences() {
             if (typeof window.updatePageLanguage === 'function') {
                 window.updatePageLanguage(currentLang);
             }
+
+            // Update post cards if present
+            updatePostCards(currentLang);
 
             // If we have a respectLangPref param, clean it up
             cleanupRespectPrefParam();
@@ -184,6 +271,9 @@ function setupLanguageSwitcher() {
 
                     // Update the active state
                     updateLanguageSwitcherActiveState(langCode);
+
+                    // Update post cards if present
+                    updatePostCards(langCode);
                 }
             }
         });
