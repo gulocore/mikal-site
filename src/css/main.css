@@ -4,6 +4,10 @@
 /* Components */
 @import 'components/scrollbar.css';
 @import 'components/sidebar.css';
+@import 'components/post.css';
+
+/* Pages */
+@import 'pages/blog.css';
 
 /* Theme */
 @import 'themes/nordic-twilight.css';
