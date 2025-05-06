@@ -39,9 +39,16 @@ module.exports = function(eleventyConfig, options = {}) {
         eleventyConfig.addPassthroughCopy({[source]: destination});
     });
 
-    // Add any additional language detection or asset-related filters
+    // Add a basic getLang filter - we just need a default value for server-side rendering
+    // The actual language detection will happen client-side
     eleventyConfig.addFilter("getLang", function(inputPath) {
-        const match = inputPath.match(/\/(?:root|site)\/([a-z]{2})\//);
-        return match ? match[1] : 'en';
+        // Try path-based detection as fallback
+        const match = inputPath?.match(/\/(?:root|site)\/([a-z]{2})\//);
+        if (match && ['en', 'sv', 'no'].includes(match[1])) {
+            return match[1];
+        }
+
+        // Default to English
+        return 'en';
     });
 };

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="{% set lang = page.inputPath | getLang %}{{ lang }}">
+{% set lang = page.inputPath | getLang(page) %}
+<html lang="{{ lang }}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +8,17 @@
     <link rel="stylesheet" href="/css/main.css">
     <!-- Icon font-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        /* Hide language switcher initially until JavaScript initializes */
+        .language-switcher {
+            visibility: hidden;
+        }
+        .language-switcher.initialized {
+            visibility: visible;
+        }
+    </style>
+
     <script>
         // If sidebar is already collapsed, apply an initial collapsed state
         // to avoid flicker effect
@@ -36,20 +48,20 @@
             <h2>{{ global.website_title }}</h2>
         </div>
 
-        <nav class="sidebar-nav">
+        <nav class="sidebar-nav" id="sidebarNav">
             <ul>
                 <li>
-                    <a href="/home/?lang={{ lang }}" {% if page.url == "/home/" %}class="active"{% endif %}>
+                    <a href="/home/" class="nav-link" data-page="home" {% if page.url == "/home/" %}class="active"{% endif %}>
                         <i class="fas fa-home"></i> <span data-nav="home">{{ i18n[lang].nav.home }}</span>
                     </a>
                 </li>
                 <li>
-                    <a href="/about/?lang={{ lang }}" {% if page.url == "/about/" %}class="active"{% endif %}>
+                    <a href="/about/" class="nav-link" data-page="about" {% if page.url == "/about/" %}class="active"{% endif %}>
                         <i class="fas fa-info-circle"></i> <span data-nav="about">{{ i18n[lang].nav.about }}</span>
                     </a>
                 </li>
                 <li>
-                    <a href="/blog/?lang={{ lang }}" {% if page.url == "/blog/" %}class="active"{% endif %}>
+                    <a href="/blog/" class="nav-link" data-page="blog" {% if page.url == "/blog/" %}class="active"{% endif %}>
                         <i class="fas fa-pen"></i> <span data-nav="blog">{{ i18n[lang].nav.blog }}</span>
                     </a>
                 </li>
@@ -58,8 +70,7 @@
 
         <div class="language-switcher">
             {% for langCode in ['en', 'sv', 'no'] %}
-                <a href="{{ page.url }}?lang={{ langCode }}" data-language="{{ langCode }}"
-                   {% if lang == langCode %}class="active"{% endif %}>
+                <a href="#" data-language="{{ langCode }}">
                     {{ langCode | upper }}
                 </a>
             {% endfor %}

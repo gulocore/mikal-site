@@ -14,7 +14,7 @@
             'no': 'no'
         };
 
-        function getDefaultLanguage() {
+        function getDefaultLanguageForDomain() {
             const hostname = window.location.hostname;
             const domainExt = hostname.split('.').pop();
 
@@ -25,22 +25,27 @@
             return localStorage.getItem(LANG_PREF_KEY);
         }
 
-        function getRedirectLanguage() {
-            // Always prioritize stored preference if it exists
+        function getRedirectPath() {
+            // Get the domain's default language
+            const domainDefaultLang = getDefaultLanguageForDomain();
+
+            // Get the user's stored preference (if any)
             const storedPref = getStoredLanguagePreference();
-            if (storedPref && AVAILABLE_LANGUAGES.includes(storedPref)) {
-                return storedPref;
+
+            // Create the base URL
+            let redirectUrl = '/home/?lang=' + domainDefaultLang;
+
+            // If we have a stored preference and it's different from the domain default,
+            // add the respectLangPref parameter so the language manager can handle it
+            if (storedPref && storedPref !== domainDefaultLang) {
+                redirectUrl += '&respectLangPref';
             }
 
-            // If no preference exists, use domain default and save it
-            const defaultLang = getDefaultLanguage();
-            localStorage.setItem(LANG_PREF_KEY, defaultLang);
-            return defaultLang;
+            return redirectUrl;
         }
 
-        // Redirect to home page with appropriate language parameter
-        const targetLang = getRedirectLanguage();
-        window.location.href = '/home/?lang=' + targetLang;
+        // Redirect to appropriate language version
+        window.location.href = getRedirectPath();
     </script>
     <!-- Fallback meta redirect if JavaScript is disabled -->
     <meta http-equiv="refresh" content="0;url=/home/?lang=en" />
