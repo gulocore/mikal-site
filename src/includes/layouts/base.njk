@@ -51,17 +51,17 @@
         <nav class="sidebar-nav" id="sidebarNav">
             <ul>
                 <li>
-                    <a href="/home/" class="nav-link" data-page="home" {% if page.url == "/home/" %}class="active"{% endif %}>
+                    <a href="/home/" class="nav-link {% if page.url.startsWith('/home/') %}active{% endif %}" data-page="home">
                         <i class="fas fa-home"></i> <span data-nav="home">{{ i18n[lang].nav.home }}</span>
                     </a>
                 </li>
                 <li>
-                    <a href="/about/" class="nav-link" data-page="about" {% if page.url == "/about/" %}class="active"{% endif %}>
+                    <a href="/about/" class="nav-link {% if page.url.startsWith('/about/') %}active{% endif %}" data-page="about">
                         <i class="fas fa-info-circle"></i> <span data-nav="about">{{ i18n[lang].nav.about }}</span>
                     </a>
                 </li>
                 <li>
-                    <a href="/blog/" class="nav-link" data-page="blog" {% if page.url == "/blog/" %}class="active"{% endif %}>
+                    <a href="/blog/" class="nav-link {% if page.url.startsWith('/blog/') %}active{% endif %}" data-page="blog">
                         <i class="fas fa-pen"></i> <span data-nav="blog">{{ i18n[lang].nav.blog }}</span>
                     </a>
                 </li>
