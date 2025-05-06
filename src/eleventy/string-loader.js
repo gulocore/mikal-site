@@ -47,7 +47,6 @@ module.exports = function(eleventyConfig) {
         return {};
     });
 
-    // Add a shortcode to serialize the string data for client-side use
     eleventyConfig.addShortcode("languageData", function() {
         const inputPath = this.page.inputPath;
         if (!inputPath) {
@@ -78,6 +77,33 @@ module.exports = function(eleventyConfig) {
         // Get access to global i18n data
         const i18n = this.ctx?.i18n || {};
 
+        // Load blog post language data when on the blog listing page
+        let postsLanguageData = {};
+        if (this.page.url === '/blog/' || this.page.url.startsWith('/blog/index')) {
+            const posts = this.ctx?.collections?.blog || [];
+
+            posts.forEach(post => {
+                const postPath = post.filePathStem.replace('/root/blog/posts/', '').replace('/index', '');
+                postsLanguageData[postPath] = {};
+
+                languages.forEach(lang => {
+                    const postDirPath = path.dirname(post.inputPath);
+                    const langFile = path.join(postDirPath, `${lang}.json`);
+                    if (fs.existsSync(langFile)) {
+                        try {
+                            const content = fs.readFileSync(langFile, 'utf8');
+                            postsLanguageData[postPath][lang] = JSON.parse(content);
+                        } catch (error) {
+                            console.error(`Error loading ${lang}.json for post ${postPath}: ${error.message}`);
+                            postsLanguageData[postPath][lang] = {};
+                        }
+                    } else {
+                        postsLanguageData[postPath][lang] = {};
+                    }
+                });
+            });
+        }
+
         // Return serialized JSON data for all languages
         return `<script>
       // Page-specific translation strings
@@ -85,6 +111,9 @@ module.exports = function(eleventyConfig) {
       
       // Global i18n translations
       window.i18nGlobal = ${JSON.stringify(i18n)};
+      
+      // Blog posts language data (only on blog listing page)
+      window.postsLanguageData = ${JSON.stringify(postsLanguageData)};
       
       // Function to get URL parameters - exposed globally
       window.getUrlParam = function(name, defaultValue = null) {

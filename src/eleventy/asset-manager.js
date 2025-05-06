@@ -37,12 +37,7 @@ module.exports = function(eleventyConfig, options = {}) {
         console.log(`📁 Setting up asset copying: ${source} → ${destination}`);
         eleventyConfig.addPassthroughCopy({[source]: destination});
     });
-
-    // Add passthrough for blog post language files
-    // This preserves the full directory structure
-    console.log(`📁 Setting up blog post language files copying`);
-    eleventyConfig.addPassthroughCopy("src/root/blog/posts/**/*.json");
-
+    
     // Add a basic getLang filter - we just need a default value for server-side rendering
     // The actual language detection will happen client-side
     eleventyConfig.addFilter("getLang", function(inputPath, page) {
