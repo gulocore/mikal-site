@@ -37,7 +37,7 @@ module.exports = function(eleventyConfig, options = {}) {
         console.log(`📁 Setting up asset copying: ${source} → ${destination}`);
         eleventyConfig.addPassthroughCopy({[source]: destination});
     });
-    
+
     // Add a basic getLang filter - we just need a default value for server-side rendering
     // The actual language detection will happen client-side
     eleventyConfig.addFilter("getLang", function(inputPath, page) {

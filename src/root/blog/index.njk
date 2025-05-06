@@ -8,7 +8,7 @@ layout: layouts/base.njk
     <h1 data-string="blogTitle">Blog Posts</h1>
     <p data-string="blogIntro">Welcome to my blog where I share my thoughts and experiences.</p>
 
-    <div class="posts-grid">
+    <div class="blog-posts-grid">
         {%- for post in collections.blog | reverse -%}
             {% set postUrl = post.url %}
             {% set postDate = post.date | date('YYYY-MM-DD') %}
@@ -20,16 +20,16 @@ layout: layouts/base.njk
             {% set postThumbnail = post.data.thumbnail or '/img/default-thumbnail.jpg' %}
             {% set postPath = post.filePathStem | replace('/root/blog/posts/', '') | replace('/index', '') %}
 
-            <article class="post-card">
-                <a href="{{ postUrl }}?lang={{ lang }}" class="post-link">
-                    <div class="post-thumbnail">
+            <article class="blog-card">
+                <a href="{{ postUrl }}?lang={{ lang }}" class="blog-card-link">
+                    <div class="blog-card-thumbnail">
                         <img src="{{ postThumbnail }}" alt="{{ postTitle }}">
                     </div>
-                    <div class="post-content">
-                        <time class="post-date">{{ postDate }}</time>
-                        <h2 class="post-title" data-post-title="{{ postPath }}">{{ postTitle }}</h2>
-                        <p class="post-excerpt" data-post-excerpt="{{ postPath }}">{{ postExcerpt }}</p>
-                        <span class="read-more" data-string="readMore">Read More</span>
+                    <div class="blog-card-content">
+                        <time class="blog-card-date">{{ postDate }}</time>
+                        <h2 class="blog-card-title" data-post-title="{{ postPath }}">{{ postTitle }}</h2>
+                        <p class="blog-card-excerpt" data-post-excerpt="{{ postPath }}">{{ postExcerpt }}</p>
+                        <span class="blog-card-read-more" data-string="readMore">Read More</span>
                     </div>
                 </a>
             </article>
@@ -40,95 +40,3 @@ layout: layouts/base.njk
         {% endif %}
     </div>
 </section>
-
-<style>
-    .blog-listing h1 {
-        margin-bottom: 1rem;
-    }
-
-    .blog-listing p {
-        margin-bottom: 2rem;
-    }
-
-    .posts-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-        gap: 2rem;
-    }
-
-    .post-card {
-        background: var(--color-background-alt);
-        border-radius: var(--border-radius);
-        overflow: hidden;
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-        height: 100%;
-    }
-
-    .post-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-    }
-
-    .post-link {
-        display: flex;
-        flex-direction: column;
-        height: 100%;
-        text-decoration: none;
-        color: var(--color-text-primary);
-    }
-
-    .post-thumbnail {
-        height: 180px;
-        overflow: hidden;
-    }
-
-    .post-thumbnail img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        transition: transform 0.3s ease;
-    }
-
-    .post-card:hover .post-thumbnail img {
-        transform: scale(1.05);
-    }
-
-    .post-content {
-        padding: 1.5rem;
-        display: flex;
-        flex-direction: column;
-        flex-grow: 1;
-    }
-
-    .post-date {
-        font-size: 0.8rem;
-        color: var(--color-text-secondary);
-        margin-bottom: 0.5rem;
-    }
-
-    .post-title {
-        font-size: 1.3rem;
-        margin-bottom: 0.75rem;
-        line-height: 1.3;
-    }
-
-    .post-excerpt {
-        color: var(--color-text-secondary);
-        font-size: 0.9rem;
-        margin-bottom: 1rem;
-        flex-grow: 1;
-    }
-
-    .read-more {
-        align-self: flex-start;
-        color: var(--color-accent-primary);
-        font-weight: 500;
-        font-size: 0.9rem;
-    }
-
-    @media (max-width: 768px) {
-        .posts-grid {
-            grid-template-columns: 1fr;
-        }
-    }
-</style>

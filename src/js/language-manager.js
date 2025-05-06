@@ -162,18 +162,19 @@ function updatePostCards(langCode) {
         });
     } else {
         // Fallback to fetch method in case embedded data isn't available
-        // (Keeping the existing fetch code as fallback)
+        // (Keeping the existing fetch implementation as fallback)
         // ...existing fetch implementation...
     }
 
     // Update post links to include current language
-    const postLinks = document.querySelectorAll('.post-link');
+    const postLinks = document.querySelectorAll('.blog-card-link');
     postLinks.forEach(link => {
         const href = link.getAttribute('href');
         const baseUrl = href.split('?')[0];
         link.setAttribute('href', `${baseUrl}?lang=${langCode}`);
     });
 }
+
 /**
  * Apply language based on URL parameters and stored preferences
  */
