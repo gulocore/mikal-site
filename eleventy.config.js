@@ -14,6 +14,7 @@ module.exports = async function(eleventyConfig) {
     const cssProcessor = require('./src/eleventy/css-processor');
     const jsBundler = require('./src/eleventy/js-bundler');
     const assetManager = require('./src/eleventy/asset-manager');
+    const blogCollection = require('./src/eleventy/blog-collection');
 
     // Apply HTML base plugin if needed
     eleventyConfig.addPlugin(EleventyHtmlBasePlugin);
@@ -23,6 +24,7 @@ module.exports = async function(eleventyConfig) {
     cssProcessor(eleventyConfig);
     jsBundler(eleventyConfig);
     assetManager(eleventyConfig);
+    blogCollection(eleventyConfig);
 };
 
 // Config must be outside the function

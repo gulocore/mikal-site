@@ -41,7 +41,14 @@ module.exports = function(eleventyConfig, options = {}) {
 
     // Add a basic getLang filter - we just need a default value for server-side rendering
     // The actual language detection will happen client-side
-    eleventyConfig.addFilter("getLang", function(inputPath) {
+    eleventyConfig.addFilter("getLang", function(inputPath, page) {
+        // Check for lang param in URL data
+        if (page && page.url) {
+            // In the real site, this will be handled by JavaScript
+            // This is just for initial rendering
+            return 'en';
+        }
+
         // Try path-based detection as fallback
         const match = inputPath?.match(/\/(?:root|site)\/([a-z]{2})\//);
         if (match && ['en', 'sv', 'no'].includes(match[1])) {

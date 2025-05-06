@@ -1,0 +1,17 @@
+{
+  "title": "Hei Verden: Mitt Første Blogginnlegg",
+  "excerpt": "Dette er mitt første blogginnlegg! Jeg er glad for å kunne dele mine tanker og erfaringer med deg.",
+  "backToBlog": "Tilbake til bloggen",
+  "intro": "Dette er mitt første blogginnlegg! Jeg er glad for å kunne dele mine tanker og erfaringer med deg.",
+  "gettingStartedHeading": "Kom i Gang",
+  "gettingStartedText": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris eget felis vel nisi bibendum malesuada. Aenean tincidunt fermentum nulla, ac hendrerit justo. Sed eu diam non dui lobortis semper.",
+  "learnedHeading": "Hva Jeg Har Lært",
+  "learnedItem1": "Eleventy er en fantastisk statisk nettstedgenerator",
+  "learnedItem2": "Nordic Twilight-temaet ser flott ut",
+  "learnedItem3": "Flerspråklig støtte gjør nettstedet tilgjengelig for flere mennesker",
+  "nextStepsHeading": "Neste Steg",
+  "nextStepsText": "I fremtidige innlegg vil jeg utforske mer avanserte emner og dele prosjektene mine. Følg med for mer innhold som kommer snart!",
+  "imageIntro": "Her er et bildeeksempel som ville vises hvis bildet eksisterte:",
+  "sampleCaption": "En eksempelbilde-bildetekst",
+  "outro": "Sjekk tilbake snart for flere oppdateringer!"
+}

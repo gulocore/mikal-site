@@ -62,15 +62,28 @@ module.exports = function(eleventyConfig) {
         const strings = window.languageStrings[lang] || window.languageStrings.en;
         
         // Update all text elements with their translations
-        Object.keys(strings).forEach(key => {
-          const elements = document.querySelectorAll(\`[data-string="\${key}"]\`);
-          elements.forEach(el => {
-            el.textContent = strings[key];
+        if (strings) {
+          Object.keys(strings).forEach(function(stringKey) {
+            const elements = document.querySelectorAll('[data-string="' + stringKey + '"]');
+            elements.forEach(function(el) {
+              // Special handling for post list items that might contain HTML
+              if (el.tagName === 'LI' && strings[stringKey].includes('<')) {
+                el.innerHTML = strings[stringKey];
+              } else {
+                el.textContent = strings[stringKey];
+              }
+            });
           });
-        });
+        }
         
         // Update global navigation elements from i18n data
         updateGlobalTranslations(lang);
+        
+        // Update document title if title element and strings exist
+        const titleElement = document.querySelector('[data-string="title"]');
+        if (titleElement && strings.title) {
+          document.title = strings.title + ' | ' + (window.i18nGlobal?.website_title || '');
+        }
       }
       
       // Function to update global navigation translations
@@ -82,10 +95,10 @@ module.exports = function(eleventyConfig) {
         
         if (navTranslations) {
           // Update nav items
-          Object.keys(navTranslations).forEach(key => {
-            const elements = document.querySelectorAll(\`[data-nav="\${key}"]\`);
-            elements.forEach(el => {
-              el.textContent = navTranslations[key];
+          Object.keys(navTranslations).forEach(function(navKey) {
+            const elements = document.querySelectorAll('[data-nav="' + navKey + '"]');
+            elements.forEach(function(el) {
+              el.textContent = navTranslations[navKey];
             });
           });
         }

@@ -1,0 +1,17 @@
+{
+  "title": "Hello World: My First Blog Post",
+  "excerpt": "This is my first blog post! I'm excited to share my thoughts and experiences with you.",
+  "backToBlog": "Back to blog",
+  "intro": "This is my first blog post! I'm excited to share my thoughts and experiences with you.",
+  "gettingStartedHeading": "Getting Started",
+  "gettingStartedText": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris eget felis vel nisi bibendum malesuada. Aenean tincidunt fermentum nulla, ac hendrerit justo. Sed eu diam non dui lobortis semper.",
+  "learnedHeading": "What I've Learned",
+  "learnedItem1": "Eleventy is a fantastic static site generator",
+  "learnedItem2": "The Nordic Twilight theme looks great",
+  "learnedItem3": "Multilingual support makes the site accessible to more people",
+  "nextStepsHeading": "Next Steps",
+  "nextStepsText": "In future posts, I'll be exploring more advanced topics and sharing my projects. Stay tuned for more content coming soon!",
+  "imageIntro": "Here's an image example that would show up if the image existed:",
+  "sampleCaption": "A sample image caption",
+  "outro": "Check back soon for more updates!"
+}
