@@ -1,12 +1,10 @@
 /**
- * Eleventy String Loader
  * Loads language-specific strings from JSON files
  */
 const fs = require('fs');
 const path = require('path');
 
 module.exports = function(eleventyConfig) {
-    // Add global data for available languages
     eleventyConfig.addGlobalData("availableLanguages", ["en", "no", "sv"]);
 
     // Add a shortcode to serialize the string data for client-side use
@@ -20,7 +18,7 @@ module.exports = function(eleventyConfig) {
         const languages = ["en", "no", "sv"];
         const allStrings = {};
 
-        // Load strings for all available languages
+        // Load strings for all languages
         languages.forEach(lang => {
             const langFile = path.join(dirPath, `${lang}.json`);
             if (fs.existsSync(langFile)) {
@@ -45,7 +43,7 @@ module.exports = function(eleventyConfig) {
       // Page-specific translation strings
       window.languageStrings = ${JSON.stringify(allStrings)};
       
-      // Global i18n translations (from data/i18n.js)
+      // Global i18n translations
       window.i18nGlobal = ${JSON.stringify(i18n)};
       
       // Function to get URL parameters - exposed globally

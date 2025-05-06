@@ -1,5 +1,4 @@
 /**
- * Asset Management Module for Eleventy
  * Handles asset copying and watch targets
  */
 
