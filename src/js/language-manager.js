@@ -6,6 +6,7 @@ const AVAILABLE_LANGUAGES = ['en', 'sv', 'no'];
 const LANG_PREF_KEY = 'languagePreference';
 const RESPECT_PREF_PARAM = 'respectLangPref';
 
+
 /**
  * Get the current language from URL query parameter or stored preference
  * @returns {string} Language code or default 'en'
@@ -74,7 +75,8 @@ function updateUrlLanguageParameter(langCode) {
         url.searchParams.delete(RESPECT_PREF_PARAM);
     }
 
-    window.history.pushState({}, '', url.toString());
+    // Use replaceState instead of pushState to avoid adding to browser history
+    window.history.replaceState({}, '', url.toString());
 
     // Update page content with new language
     if (typeof window.updatePageLanguage === 'function') {
@@ -84,7 +86,6 @@ function updateUrlLanguageParameter(langCode) {
     // Update navigation links with current language
     updateNavigationLinks(langCode);
 }
-
 /**
  * Update the active state in language switcher
  * @param {string} langCode - Language code to set as active
