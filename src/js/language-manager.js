@@ -1,18 +1,18 @@
 /**
- * Language preference manager that respects existing preferences
+ * Language preference manager for query parameter-based language switching
  */
-
 
 const AVAILABLE_LANGUAGES = ['en', 'sv', 'no'];
 const LANG_PREF_KEY = 'languagePreference';
 
 /**
- * Get the current language from URL path
- * @returns {string|null} Language code or null if not found
+ * Get the current language from URL query parameter
+ * @returns {string} Language code or default 'en'
  */
-function getCurrentLanguageFromPath() {
-    const pathMatch = window.location.pathname.match(/^\/(en|sv|no)\//);
-    return pathMatch ? pathMatch[1] : null;
+function getCurrentLanguageFromQuery() {
+    const params = new URLSearchParams(window.location.search);
+    const langParam = params.get('lang');
+    return AVAILABLE_LANGUAGES.includes(langParam) ? langParam : getStoredLanguagePreference() || 'en';
 }
 
 /**
@@ -34,32 +34,64 @@ function saveLanguagePreference(langCode) {
 }
 
 /**
- * Check if user needs to be redirected to their preferred language
- * This redirects a user if they're on a language path that doesn't match their preference
+ * Update URL to use the specified language
+ * @param {string} langCode - Language code to set
  */
-function redirectToPreferredLanguageIfNeeded() {
-    const currentLang = getCurrentLanguageFromPath();
-    const storedPref = getStoredLanguagePreference();
+function updateUrlLanguageParameter(langCode) {
+    if (!AVAILABLE_LANGUAGES.includes(langCode)) return;
 
-    // Only redirect if:
-    // 1. We have a stored preference
-    // 2. We're currently on a language path
-    // 3. The current language doesn't match the preference
-    if (storedPref && currentLang && currentLang !== storedPref) {
-        // Create the new URL by replacing language in path
-        const newPath = window.location.pathname.replace(
-            new RegExp(`^\\/${currentLang}\\/`),
-            `/${storedPref}/`
-        );
+    const url = new URL(window.location.href);
+    url.searchParams.set('lang', langCode);
+    window.history.pushState({}, '', url.toString());
 
-        // Redirect to the new URL, preserving query string and hash
-        window.location.href = newPath + window.location.search + window.location.hash;
+    // Update the active state in language switcher
+    updateLanguageSwitcherActiveState(langCode);
+
+    // Update page content with new language
+    if (typeof window.updatePageLanguage === 'function') {
+        window.updatePageLanguage(langCode);
     }
 }
 
 /**
- * Setup language switcher to save preferences
- * This adds a click handler to language switcher links
+ * Update the active state in language switcher
+ * @param {string} langCode - Language code to set as active
+ */
+function updateLanguageSwitcherActiveState(langCode) {
+    const links = document.querySelectorAll('.language-switcher a');
+    links.forEach(link => {
+        const linkLang = link.getAttribute('data-language');
+        if (linkLang === langCode) {
+            link.classList.add('active');
+        } else {
+            link.classList.remove('active');
+        }
+    });
+}
+
+/**
+ * Apply preferred language if needed
+ */
+function applyPreferredLanguage() {
+    const currentLang = getCurrentLanguageFromQuery();
+    const storedPref = getStoredLanguagePreference();
+
+    // If no language parameter in URL but we have a stored preference
+    if (!new URLSearchParams(window.location.search).has('lang') && storedPref) {
+        updateUrlLanguageParameter(storedPref);
+    } else {
+        // Make sure the active state is correct for current language
+        updateLanguageSwitcherActiveState(currentLang);
+
+        // If this is a new language, store it
+        if (currentLang !== storedPref) {
+            saveLanguagePreference(currentLang);
+        }
+    }
+}
+
+/**
+ * Setup language switcher to save preferences and update URL
  */
 function setupLanguageSwitcher() {
     const languageSwitcher = document.querySelector('.language-switcher');
@@ -68,22 +100,23 @@ function setupLanguageSwitcher() {
         languageSwitcher.addEventListener('click', function (e) {
             // Check if we clicked on a language link
             if (e.target.tagName === 'A') {
-                // Extract language code from href
-                const href = e.target.getAttribute('href');
-                const langMatch = href.match(/^\/(en|sv|no)\//);
+                e.preventDefault(); // Prevent default link navigation
+                const langCode = e.target.getAttribute('data-language');
 
-                if (langMatch) {
+                if (langCode && AVAILABLE_LANGUAGES.includes(langCode)) {
+                    // Save preference
+                    saveLanguagePreference(langCode);
 
-                    saveLanguagePreference(langMatch[1]);
+                    // Update URL and page content
+                    updateUrlLanguageParameter(langCode);
                 }
             }
         });
     }
 }
 
-
+// Initialize on DOM ready
 document.addEventListener('DOMContentLoaded', function () {
-
     setupLanguageSwitcher();
-    redirectToPreferredLanguageIfNeeded();
+    applyPreferredLanguage();
 });

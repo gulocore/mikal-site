@@ -39,18 +39,18 @@
         <nav class="sidebar-nav">
             <ul>
                 <li>
-                    <a href="/{{ lang }}/" {% if page.url == "/"+lang+"/" %}class="active"{% endif %}>
-                        <i class="fas fa-home"></i> <span>{{ i18n[lang].nav.home }}</span>
+                    <a href="/home/?lang={{ lang }}" {% if page.url == "/home/" %}class="active"{% endif %}>
+                        <i class="fas fa-home"></i> <span data-nav="home">{{ i18n[lang].nav.home }}</span>
                     </a>
                 </li>
                 <li>
-                    <a href="/{{ lang }}/about/" {% if page.url == "/"+lang+"/about/" %}class="active"{% endif %}>
-                        <i class="fas fa-info-circle"></i> <span>{{ i18n[lang].nav.about }}</span>
+                    <a href="/about/?lang={{ lang }}" {% if page.url == "/about/" %}class="active"{% endif %}>
+                        <i class="fas fa-info-circle"></i> <span data-nav="about">{{ i18n[lang].nav.about }}</span>
                     </a>
                 </li>
                 <li>
-                    <a href="/{{ lang }}/blog/" {% if page.url == "/"+lang+"/blog/" %}class="active"{% endif %}>
-                        <i class="fas fa-pen"></i> <span>{{ i18n[lang].nav.blog }}</span>
+                    <a href="/blog/?lang={{ lang }}" {% if page.url == "/blog/" %}class="active"{% endif %}>
+                        <i class="fas fa-pen"></i> <span data-nav="blog">{{ i18n[lang].nav.blog }}</span>
                     </a>
                 </li>
             </ul>
@@ -58,8 +58,7 @@
 
         <div class="language-switcher">
             {% for langCode in ['en', 'sv', 'no'] %}
-                {% set pagePath = page.url | replace("/" + lang + "/", "") %}
-                <a href="/{{ langCode }}/{% if pagePath %}{{ pagePath }}{% endif %}"
+                <a href="{{ page.url }}?lang={{ langCode }}" data-language="{{ langCode }}"
                    {% if lang == langCode %}class="active"{% endif %}>
                     {{ langCode | upper }}
                 </a>

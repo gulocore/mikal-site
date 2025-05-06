@@ -37,19 +37,28 @@ module.exports = function(eleventyConfig) {
             }
         });
 
+        // Get access to global i18n data
+        const i18n = this.ctx?.i18n || {};
+
         // Return serialized JSON data for all languages
         return `<script>
+      // Page-specific translation strings
       window.languageStrings = ${JSON.stringify(allStrings)};
       
-      // Function to get URL parameters
-      function getUrlParam(name, defaultValue = null) {
+      // Global i18n translations (from data/i18n.js)
+      window.i18nGlobal = ${JSON.stringify(i18n)};
+      
+      // Function to get URL parameters - exposed globally
+      window.getUrlParam = function(name, defaultValue = null) {
         const params = new URLSearchParams(window.location.search);
         return params.get(name) || defaultValue;
       }
       
-      // Function to update the page language
-      function updatePageLanguage() {
-        const lang = getUrlParam('lang', 'en');
+      // Function to update the page language - exposed globally
+      window.updatePageLanguage = function(langCode = null) {
+        const lang = langCode || window.getUrlParam('lang', 'en');
+        
+        // Update page-specific translations
         const strings = window.languageStrings[lang] || window.languageStrings.en;
         
         // Update all text elements with their translations
@@ -59,10 +68,31 @@ module.exports = function(eleventyConfig) {
             el.textContent = strings[key];
           });
         });
+        
+        // Update global navigation elements from i18n data
+        updateGlobalTranslations(lang);
+      }
+      
+      // Function to update global navigation translations
+      function updateGlobalTranslations(lang) {
+        if (!window.i18nGlobal || !window.i18nGlobal[lang]) return;
+        
+        // Get the nav translations for the selected language
+        const navTranslations = window.i18nGlobal[lang].nav;
+        
+        if (navTranslations) {
+          // Update nav items
+          Object.keys(navTranslations).forEach(key => {
+            const elements = document.querySelectorAll(\`[data-nav="\${key}"]\`);
+            elements.forEach(el => {
+              el.textContent = navTranslations[key];
+            });
+          });
+        }
       }
       
       // Initialize when DOM is ready
-      document.addEventListener('DOMContentLoaded', updatePageLanguage);
+      document.addEventListener('DOMContentLoaded', window.updatePageLanguage);
     </script>`;
     });
 

@@ -4,9 +4,8 @@
     <meta charset="UTF-8">
     <title>Redirecting...</title>
     <script>
-
         const LANG_PREF_KEY = 'languagePreference';
-
+        const AVAILABLE_LANGUAGES = ['en', 'sv', 'no'];
 
         // This is used only for the initial visit to determine default language
         const DOMAIN_DEFAULTS = {
@@ -22,16 +21,14 @@
             return DOMAIN_DEFAULTS[domainExt] || 'en';
         }
 
-
         function getStoredLanguagePreference() {
             return localStorage.getItem(LANG_PREF_KEY);
         }
 
-
         function getRedirectLanguage() {
             // Always prioritize stored preference if it exists
             const storedPref = getStoredLanguagePreference();
-            if (storedPref) {
+            if (storedPref && AVAILABLE_LANGUAGES.includes(storedPref)) {
                 return storedPref;
             }
 
@@ -41,12 +38,12 @@
             return defaultLang;
         }
 
-        // Redirect to appropriate language version
+        // Redirect to home page with appropriate language parameter
         const targetLang = getRedirectLanguage();
-        window.location.href = '/' + targetLang + '/';
+        window.location.href = '/home/?lang=' + targetLang;
     </script>
     <!-- Fallback meta redirect if JavaScript is disabled -->
-    <meta http-equiv="refresh" content="0;url=/en/" />
+    <meta http-equiv="refresh" content="0;url=/home/?lang=en" />
 </head>
 <body>
 <p>Redirecting to appropriate language version...</p>
