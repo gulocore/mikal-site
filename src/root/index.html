@@ -6,37 +6,23 @@
     <script>
         const LANG_PREF_KEY = 'languagePreference';
 
-        // This is used only for the initial visit to determine default language
-        const DOMAIN_DEFAULTS = {
-            'com': 'en',
-            'se': 'sv',
-            'no': 'no'
-        };
-
-        function getDefaultLanguageForDomain() {
-            const hostname = window.location.hostname;
-            const domainExt = hostname.split('.').pop();
-
-            return DOMAIN_DEFAULTS[domainExt] || 'en';
-        }
-
         function getStoredLanguagePreference() {
             return localStorage.getItem(LANG_PREF_KEY);
         }
 
         function getRedirectPath() {
-            // Get the domain's default language
-            const domainDefaultLang = getDefaultLanguageForDomain();
+            // Default language is English
+            const defaultLang = 'en';
 
             // Get the user's stored preference (if any)
             const storedPref = getStoredLanguagePreference();
 
-            // Create the base URL
-            let redirectUrl = '/home/?lang=' + domainDefaultLang;
+            // Create the base URL, defaulting to English if no preference
+            let redirectUrl = '/home/?lang=' + (storedPref || defaultLang);
 
-            // If we have a stored preference and it's different from the domain default,
-            // add the respectLangPref parameter so the language manager can handle it
-            if (storedPref && storedPref !== domainDefaultLang) {
+            // If we have a stored preference and it's different from the default,
+            // add the respectLangPref parameter so the language manager can handle it properly
+            if (storedPref && storedPref !== defaultLang) {
                 redirectUrl += '&respectLangPref';
             }
 

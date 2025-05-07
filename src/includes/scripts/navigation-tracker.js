@@ -1,13 +1,11 @@
 // Early Back Navigation Detection
 // This script runs immediately in the page head
-import {available_languages, lang_pref_key, respect_lang_pref_param} from "../../data/global";
-
 (function() {
     // Constants
-    const LANG_PREF_KEY = lang_pref_key;
-    const RESPECT_PREF_PARAM = respect_lang_pref_param;
+    const LANG_PREF_KEY = 'languagePreference';
+    const RESPECT_PREF_PARAM = 'respectLangPref';
     const NAV_HISTORY_KEY = 'navigationHistory';
-    const AVAILABLE_LANGUAGES = available_languages;
+    const AVAILABLE_LANGUAGES = ['en', 'sv', 'no'];
 
     // Skip if we're already using respectLangPref
     const params = new URLSearchParams(window.location.search);
