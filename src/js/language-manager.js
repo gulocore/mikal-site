@@ -1,11 +1,11 @@
 /**
  * Language preference manager for query parameter-based language switching
  */
+import {available_languages, lang_pref_key, respect_lang_pref_param} from "../data/global";
 
-const AVAILABLE_LANGUAGES = ['en', 'sv', 'no'];
-const LANG_PREF_KEY = 'languagePreference';
-const RESPECT_PREF_PARAM = 'respectLangPref';
-
+const AVAILABLE_LANGUAGES = available_languages;
+const LANG_PREF_KEY = lang_pref_key;
+const RESPECT_PREF_PARAM = respect_lang_pref_param;
 
 /**
  * Get the current language from URL query parameter or stored preference
@@ -259,22 +259,34 @@ function setupLanguageSwitcher() {
 }
 
 /**
- * Setup navigation link click handlers
+ * Setup navigation link handling
  */
 function setupNavigationLinks() {
-    const sidebarNav = document.getElementById('sidebarNav');
+    // Find all navigation links
+    const allNavLinks = document.querySelectorAll('.nav-link, .blog-card-link, a[href]:not([data-language])');
 
-    if (sidebarNav) {
-        sidebarNav.addEventListener('click', function(e) {
-            // Find closest nav-link if we clicked inside one
-            const navLink = e.target.closest('.nav-link');
+    allNavLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            // Don't interfere with language switcher links
+            if (link.hasAttribute('data-language')) return;
 
-            if (navLink) {
-                // We don't prevent default here, as we want normal navigation
-                // The link's href already includes the current language parameter
+            // Get the href attribute
+            const href = link.getAttribute('href');
+
+            // Skip external links, mailto links, and anchors
+            if (!href || href.startsWith('http') || href.startsWith('mailto:') || href.startsWith('#')) return;
+
+            // Build the URL with current language
+            const url = new URL(href, window.location.origin);
+            const lang = getStoredLanguagePreference() || 'en';
+
+            // If URL doesn't have language parameter, add it
+            if (!url.searchParams.has('lang')) {
+                url.searchParams.set('lang', lang);
+                link.setAttribute('href', url.toString());
             }
         });
-    }
+    });
 }
 
 // Initialize language system
@@ -286,6 +298,7 @@ function setupNavigationLinks() {
     }
 
     function initializeLanguageSystem() {
+
         setupLanguageSwitcher();
         setupNavigationLinks();
         applyLanguagePreferences();

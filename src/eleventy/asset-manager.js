@@ -2,6 +2,7 @@
  * Handles asset copying and watch targets
  */
 
+const {available_languages} = require("../data/global");
 /**
  * Add asset management to Eleventy
  * @param {Object} eleventyConfig - Eleventy configuration object
@@ -50,7 +51,7 @@ module.exports = function(eleventyConfig, options = {}) {
 
         // Try path-based detection as fallback
         const match = inputPath?.match(/\/(?:root|site)\/([a-z]{2})\//);
-        if (match && ['en', 'sv', 'no'].includes(match[1])) {
+        if (match && available_languages.includes(match[1])) {
             return match[1];
         }
 

@@ -3,9 +3,10 @@
  */
 const fs = require('fs');
 const path = require('path');
+const {available_languages} = require("../data/global");
 
 module.exports = function(eleventyConfig) {
-    eleventyConfig.addGlobalData("availableLanguages", ["en", "no", "sv"]);
+    eleventyConfig.addGlobalData("availableLanguages", available_languages);
 
     // Add a filter to get language-specific post data
     eleventyConfig.addFilter("getPostLangData", function(post, lang) {
@@ -54,11 +55,10 @@ module.exports = function(eleventyConfig) {
         }
 
         const dirPath = path.dirname(inputPath);
-        const languages = ["en", "no", "sv"];
         const allStrings = {};
 
         // Load strings for all languages
-        languages.forEach(lang => {
+        available_languages.forEach(lang => {
             const langFile = path.join(dirPath, `${lang}.json`);
             if (fs.existsSync(langFile)) {
                 try {
@@ -86,7 +86,7 @@ module.exports = function(eleventyConfig) {
                 const postPath = post.filePathStem.replace('/root/blog/posts/', '').replace('/index', '');
                 postsLanguageData[postPath] = {};
 
-                languages.forEach(lang => {
+                available_languages.forEach(lang => {
                     const postDirPath = path.dirname(post.inputPath);
                     const langFile = path.join(postDirPath, `${lang}.json`);
                     if (fs.existsSync(langFile)) {
